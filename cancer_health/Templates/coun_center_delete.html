@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Counseling Center</title>
+</head>
+<body>
+    <h1>Delete Counseling Center</h1>
+    <p>Are you sure you want to delete "{{ coun_center.councenter }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'coun_center_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

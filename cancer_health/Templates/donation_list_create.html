@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donations</title>
+</head>
+<body>
+    <h1>Donations</h1>
+
+    <h2>Add New Donation</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Donations</h2>
+    <ul>
+        {% for donation in donations %}
+            <li>
+                {{ donation.Guestid }} - {{ donation.Amount }}
+                <a href="{% url 'donation_edit' donation.pk %}">Edit</a>
+                <a href="{% url 'donation_delete' donation.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

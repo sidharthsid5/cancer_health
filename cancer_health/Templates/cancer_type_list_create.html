@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cancer Types</title>
+</head>
+<body>
+    <h1>Cancer Types</h1>
+
+    <h2>Add New Cancer Type</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Cancer Types</h2>
+    <ul>
+        {% for cancer_type in cancer_types %}
+            <li>
+                {{ cancer_type.cancertype }}
+                <a href="{% url 'cancer_type_edit' cancer_type.pk %}">Edit</a>
+                <a href="{% url 'cancer_type_delete' cancer_type.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

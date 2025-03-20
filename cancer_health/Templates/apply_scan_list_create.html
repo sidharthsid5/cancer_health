@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply Scans</title>
+</head>
+<body>
+    <h1>Apply Scans</h1>
+
+    <h2>Apply for a Scan</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Scan Applications</h2>
+    <ul>
+        {% for apply_scan in apply_scans %}
+            <li>
+                Scan ID: {{ apply_scan.Scanid }} - Patient: {{ apply_scan.patientId }}
+                <a href="{% url 'apply_scan_edit' apply_scan.pk %}">Edit</a>
+                <a href="{% url 'apply_scan_delete' apply_scan.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

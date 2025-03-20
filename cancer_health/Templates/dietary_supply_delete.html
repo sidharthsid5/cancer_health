@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Dietary Supply</title>
+</head>
+<body>
+    <h1>Delete Dietary Supply</h1>
+    <p>Are you sure you want to delete "{{ dietary_supply.supply }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'dietary_supply_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

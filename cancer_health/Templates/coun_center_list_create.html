@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counseling Centers</title>
+</head>
+<body>
+    <h1>Counseling Centers</h1>
+
+    <h2>Add New Counseling Center</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Counseling Centers</h2>
+    <ul>
+        {% for coun_center in coun_centers %}
+            <li>
+                {{ coun_center.councenter }}
+                <a href="{% url 'coun_center_edit' coun_center.pk %}">Edit</a>
+                <a href="{% url 'coun_center_delete' coun_center.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

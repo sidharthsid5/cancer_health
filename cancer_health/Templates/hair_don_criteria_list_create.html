@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hair Donation Criteria</title>
+</head>
+<body>
+    <h1>Hair Donation Criteria</h1>
+
+    <h2>Add New Hair Donation Criteria</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Hair Donation Criteria</h2>
+    <ul>
+        {% for hair_don_criteria in hair_don_criterias %}
+            <li>
+                {{ hair_don_criteria.criteria }}
+                <a href="{% url 'hair_don_criteria_edit' hair_don_criteria.pk %}">Edit</a>
+                <a href="{% url 'hair_don_criteria_delete' hair_don_criteria.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

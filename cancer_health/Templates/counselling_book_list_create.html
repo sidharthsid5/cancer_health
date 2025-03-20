@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Counselling Bookings</title>
+</head>
+<body>
+    <h1>Counselling Bookings</h1>
+
+    <h2>Book a Counselling Session</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Counselling Bookings</h2>
+    <ul>
+        {% for counselling_book in counselling_books %}
+            <li>
+                Booking ID: {{ counselling_book.Counsid }} - Patient: {{ counselling_book.patientId }}
+                <a href="{% url 'counselling_book_edit' counselling_book.pk %}">Edit</a>
+                <a href="{% url 'counselling_book_delete' counselling_book.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

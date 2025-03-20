@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Registrations</title>
+</head>
+<body>
+    <h1>Patient Registrations</h1>
+
+    <h2>Add New Patient Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Patient Registrations</h2>
+    <ul>
+        {% for patient_reg in patient_regs %}
+            <li>
+                {{ patient_reg.patientname }} - {{ patient_reg.contactno }}
+                <a href="{% url 'patient_reg_edit' patient_reg.pk %}">Edit</a>
+                <a href="{% url 'patient_reg_delete' patient_reg.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Counselling Booking</title>
+</head>
+<body>
+    <h1>Delete Counselling Booking</h1>
+    <p>Are you sure you want to delete counselling booking ID: {{ counselling_book.Counsid }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'counselling_book_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

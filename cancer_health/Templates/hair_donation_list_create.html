@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hair Donations</title>
+</head>
+<body>
+    <h1>Hair Donations</h1>
+
+    <h2>Add New Hair Donation</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Hair Donations</h2>
+    <ul>
+        {% for hair_donation in hair_donations %}
+            <li>
+                {{ hair_donation.Guestid }} - {{ hair_donation.length }}
+                <a href="{% url 'hair_donation_edit' hair_donation.pk %}">Edit</a>
+                <a href="{% url 'hair_donation_delete' hair_donation.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Guide Line</title>
+</head>
+<body>
+    <h1>Delete Guide Line</h1>
+    <p>Are you sure you want to delete "{{ guide_line.guideline }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'guide_lines_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

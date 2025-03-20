@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteer Registrations</title>
+</head>
+<body>
+    <h1>Volunteer Registrations</h1>
+
+    <h2>Add New Volunteer Registration</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Volunteer Registrations</h2>
+    <ul>
+        {% for volunteer_reg in volunteer_regs %}
+            <li>
+                {{ volunteer_reg.volunteername }} - {{ volunteer_reg.contactno }}
+                <a href="{% url 'volunteer_reg_edit' volunteer_reg.pk %}">Edit</a>
+                <a href="{% url 'volunteer_reg_delete' volunteer_reg.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

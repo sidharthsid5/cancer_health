@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Scan Type</title>
+</head>
+<body>
+    <h1>Delete Scan Type</h1>
+    <p>Are you sure you want to delete "{{ scan_type.scantype }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'scan_type_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

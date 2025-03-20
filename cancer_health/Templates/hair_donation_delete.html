@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Hair Donation</title>
+</head>
+<body>
+    <h1>Delete Hair Donation</h1>
+    <p>Are you sure you want to delete the hair donation?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'hair_donation_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

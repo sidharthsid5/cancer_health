@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Comment</title>
+</head>
+<body>
+    <h1>Delete Comment</h1>
+    <p>Are you sure you want to delete comment ID: {{ comments.commentsid }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'comments_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

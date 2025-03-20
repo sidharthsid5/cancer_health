@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Types</title>
+</head>
+<body>
+    <h1>Scan Types</h1>
+
+    <h2>Add New Scan Type</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Scan Types</h2>
+    <ul>
+        {% for scan_type in scan_types %}
+            <li>
+                {{ scan_type.scantype }}
+                <a href="{% url 'scan_type_edit' scan_type.pk %}">Edit</a>
+                <a href="{% url 'scan_type_delete' scan_type.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

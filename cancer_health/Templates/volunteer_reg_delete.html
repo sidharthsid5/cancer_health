@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Volunteer Registration</title>
+</head>
+<body>
+    <h1>Delete Volunteer Registration</h1>
+    <p>Are you sure you want to delete "{{ volunteer_reg.volunteername }}"'s registration?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'volunteer_reg_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

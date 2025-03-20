@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Scan Center</title>
+</head>
+<body>
+    <h1>Delete Scan Center</h1>
+    <p>Are you sure you want to delete "{{ scan_center.scancenter }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'scan_center_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

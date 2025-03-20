@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Free Vig Registrations</title>
+</head>
+<body>
+    <h1>Free Vig Registrations</h1>
+
+    <h2>Register for Free Vig</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Free Vig Registrations</h2>
+    <ul>
+        {% for reg_freevig in reg_freevigs %}
+            <li>
+                Registration ID: {{ reg_freevig.Regid }} - Patient: {{ reg_freevig.patientId }}
+                <a href="{% url 'reg_freevig_edit' reg_freevig.pk %}">Edit</a>
+                <a href="{% url 'reg_freevig_delete' reg_freevig.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

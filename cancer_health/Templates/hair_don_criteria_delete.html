@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Hair Donation Criteria</title>
+</head>
+<body>
+    <h1>Delete Hair Donation Criteria</h1>
+    <p>Are you sure you want to delete "{{ hair_don_criteria.criteria }}"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'hair_don_criteria_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

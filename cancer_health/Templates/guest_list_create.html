@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guests</title>
+</head>
+<body>
+    <h1>Guests</h1>
+
+    <h2>Add New Guest</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Guests</h2>
+    <ul>
+        {% for guest in guests %}
+            <li>
+                {{ guest.guestname }}
+                <a href="{% url 'guest_edit' guest.pk %}">Edit</a>
+                <a href="{% url 'guest_delete' guest.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

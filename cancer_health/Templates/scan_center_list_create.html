@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scan Centers</title>
+</head>
+<body>
+    <h1>Scan Centers</h1>
+
+    <h2>Add New Scan Center</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Scan Centers</h2>
+    <ul>
+        {% for scan_center in scan_centers %}
+            <li>
+                {{ scan_center.scancenter }}
+                <a href="{% url 'scan_center_edit' scan_center.pk %}">Edit</a>
+                <a href="{% url 'scan_center_delete' scan_center.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

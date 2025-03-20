@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admins</title>
+</head>
+<body>
+    <h1>Admins</h1>
+
+    <h2>Add New Admin</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Admins</h2>
+    <ul>
+        {% for admin in admins %}
+            <li>
+                {{ admin.username }}
+                <a href="{% url 'admin_edit' admin.username %}">Edit</a>
+                <a href="{% url 'admin_delete' admin.username %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

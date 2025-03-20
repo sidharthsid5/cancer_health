@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Scan Application</title>
+</head>
+<body>
+    <h1>Delete Scan Application</h1>
+    <p>Are you sure you want to delete scan application ID: {{ apply_scan.Scanid }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'apply_scan_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

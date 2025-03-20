@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Patient Health Record</title>
+</head>
+<body>
+    <h1>Delete Patient Health Record</h1>
+    <p>Are you sure you want to delete record ID: {{ pat_health_rec.Recorded }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'pat_health_rec_list_create' %}">Cancel</a>
+    </form>
+</body>
+</html>

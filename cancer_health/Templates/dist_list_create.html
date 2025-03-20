@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Districts</title>
+</head>
+<body>
+    <h1>Districts</h1>
+
+    <h2>Add New District</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Districts</h2>
+    <ul>
+        {% for dist in dists %}
+            <li>
+                {{ dist.districtname }}
+                <a href="{% url 'dist_edit' dist.pk %}">Edit</a>
+                <a href="{% url 'dist_delete' dist.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

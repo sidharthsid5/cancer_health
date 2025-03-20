@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Guide Lines</title>
+</head>
+<body>
+    <h1>Guide Lines</h1>
+
+    <h2>Add New Guide Line</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Guide Lines</h2>
+    <ul>
+        {% for guide_line in guide_lines %}
+            <li>
+                {{ guide_line.guideline }}
+                <a href="{% url 'guide_lines_edit' guide_line.pk %}">Edit</a>
+                <a href="{% url 'guide_lines_delete' guide_line.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dietary Supplies</title>
+</head>
+<body>
+    <h1>Dietary Supplies</h1>
+
+    <h2>Add New Dietary Supply</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Dietary Supplies</h2>
+    <ul>
+        {% for dietary_supply in dietary_supplies %}
+            <li>
+                {{ dietary_supply.supply }}
+                <a href="{% url 'dietary_supply_edit' dietary_supply.pk %}">Edit</a>
+                <a href="{% url 'dietary_supply_delete' dietary_supply.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

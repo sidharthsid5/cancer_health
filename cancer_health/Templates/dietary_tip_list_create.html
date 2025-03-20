@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dietary Tips</title>
+</head>
+<body>
+    <h1>Dietary Tips</h1>
+
+    <h2>Add New Dietary Tip</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Dietary Tips</h2>
+    <ul>
+        {% for dietary_tip in dietary_tips %}
+            <li>
+                {{ dietary_tip.dietarytip }}
+                <a href="{% url 'dietary_tip_edit' dietary_tip.pk %}">Edit</a>
+                <a href="{% url 'dietary_tip_delete' dietary_tip.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

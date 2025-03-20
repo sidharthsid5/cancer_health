@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Health Records</title>
+</head>
+<body>
+    <h1>Patient Health Records</h1>
+
+    <h2>Add New Health Record</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+
+    <h2>Existing Health Records</h2>
+    <ul>
+        {% for pat_health_rec in pat_health_recs %}
+            <li>
+                Record ID: {{ pat_health_rec.Recorded }} - Patient: {{ pat_health_rec.patientId }}
+                <a href="{% url 'pat_health_rec_edit' pat_health_rec.pk %}">Edit</a>
+                <a href="{% url 'pat_health_rec_delete' pat_health_rec.pk %}">Delete</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
