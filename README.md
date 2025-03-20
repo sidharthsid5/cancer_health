@@ -2,10 +2,18 @@ Caring for someone with cancer, or any chronic illness, is one of the greatest e
 Everyone’s situation is different, and everyone has different ways of coping. Some people find they need to talk through their feelings and fears before they can begin to make plans and decide on practical matters. Others manage better by beginning with the practical things.
 
 Cancer Healthline Portal is a web based project. This project is being considered in order to help the cancer patients. It is a software which is used to provide all the benefits to cancer patients where they can register their details and can get excellent and low cost facility to all their problems like scaning,counselling with the doctor,freevig etc. The goal of this project is to provide comfort and care to cancer patients so that they do not have to walk-in or call in to get these necessary facilities. Even if the patients walk-in, computers are available for them to go online and register their name. Cancer Healthline is a system design especially for a large number of cancer patients with a total free help.
+
 2.2 OBJECTIVES
+
 To back up and restore the data if there is any loss of data occurs.
+
 It is a system design especially for cancer patients.
+
 This project provides complete benefit for all types of cancer patients.
+
 Those who wish to donate money, hairetc. can also register.
+
 Any inquiry is easily done by user in the system.
+
 The user can view scanning center, counselling center and can book date.
+
