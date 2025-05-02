@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import (
     CancerType, ScanType, ScanCenter, CounCenter,
     HairDonCriteria, MedServices, GuideLines, DietaryTip,
-    DietarySupply, Events, Admin, State, Dist
+    DietarySupply, Events, State, Dist
 )
 
 admin.site.register(CancerType)
@@ -17,6 +17,5 @@ admin.site.register(GuideLines)
 admin.site.register(DietaryTip)
 admin.site.register(DietarySupply)
 admin.site.register(Events)
-admin.site.register(Admin)
 admin.site.register(State)
 admin.site.register(Dist)

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'guest_header.html' %}
 <html>
 <head>
     <title>Donations</title>
 </head>
+{% block content %}
 <body>
     <h1>Donations</h1>
 
@@ -23,5 +25,6 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

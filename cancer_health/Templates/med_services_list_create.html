@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Medical Services</title>
 </head>
+{% block content %}
 <body>
     <h1>Medical Services</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for med_service in med_services %}
             <li>
-                {{ med_service.service }}
+                {{ med_service.medical_service }}
                 <a href="{% url 'med_services_edit' med_service.pk %}">Edit</a>
                 <a href="{% url 'med_services_delete' med_service.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

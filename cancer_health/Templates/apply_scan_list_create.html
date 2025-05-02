@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'patient_header.html' %}
 <html>
 <head>
     <title>Apply Scans</title>
 </head>
+{% block content %}
 <body>
     <h1>Apply Scans</h1>
 
@@ -23,5 +25,6 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

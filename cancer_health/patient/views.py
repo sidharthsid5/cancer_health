@@ -1,7 +1,22 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import PatHealthRec, ApplyScan, CounsellingBook, RegFreevig, Comments
-from .forms import PatHealthRecForm, ApplyScanForm, CounsellingBookForm, RegFreevigForm, CommentsForm
+from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthRec
+from .forms import ApplyScanForm, CounsellingBookForm, RegFreevigForm, CommentsForm, PatHealthRecForm
+from administrator.forms import District
+from administrator.models import ScanCenter
 
+from administrator.models import ScanType
+
+
+def homee(request):
+    # return HttpResponse("hai<br>"
+    #                     "<a href='pat_health_rec_list_create'>Click me</a><br>"
+    #                     "<a href='apply_scan_list_create'>Click me</a><br>"
+    #                     "<a href='counselling_book_list_create'>Click me</a><br>"
+    #                     "<a href='reg_freevig_list_create'>Click me</a><br>"
+    #                     "<a href='comments_list_create'>Click me</a><br>"
+    #                     )
+    return render(request, 'patient_home.html')
 # PatHealthRec
 def pat_health_rec_list_create(request):
     if request.method == 'POST':
@@ -151,3 +166,49 @@ def comments_delete(request, pk):
         comment.delete()
         return redirect('comments_list_create')
     return render(request, 'comments_delete.html', {'comment': comment})
+
+def search_scan_center(request):
+    context = {}
+    form = District(request.POST or None, request.FILES or None)
+    if request.POST:
+        dist = request.POST.get('District')
+        context["dataset"] = ScanCenter.objects.filter(District=dist)
+        context["frm"] = form
+        return render(request, "search_scan_center.html", context)
+    context["frm"] = form
+    return render(request, 'search_scan_center.html',context)
+
+
+def scan_type_view(request,scnid):
+    dataset = ScanType.objects.all()
+    selected_items = []
+    total = 0
+
+    if request.method == "POST":
+        selected_ids = request.POST.getlist("scans")
+        selected_items = []
+        for item in ScanType.objects.filter(id__in=selected_ids):
+            final_price = item.Amount - item.Discount
+            selected_items.append({
+                "name": item.Scantype,
+                "amount": item.Amount,
+                "discount": item.Discount,
+                "final": final_price
+            })
+            total += final_price
+
+    context = {
+        "dataset": dataset,
+        "selected_items": selected_items,
+        "total": total,
+        "scanningcnre":scnid,
+    }
+    return render(request, 'scan_type_View.html', context)
+
+def scanning_booking(request):
+    patid=request.session["Patient_id"]
+    if request.method == 'POST':
+        try:
+            Scan_Type=
+
+        return redirect()

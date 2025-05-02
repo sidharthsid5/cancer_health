@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>States</title>
 </head>
+{% block content %}
 <body>
     <h1>States</h1>
 
@@ -12,16 +14,17 @@
         {{ form.as_p }}
         <button type="submit">Save</button>
     </form>
-
+<table>
     <h2>Existing States</h2>
-    <ul>
+
         {% for state in states %}
-            <li>
-                {{ state.statename }}
+
+                {{ state.State }}
                 <a href="{% url 'state_edit' state.pk %}">Edit</a>
                 <a href="{% url 'state_delete' state.pk %}">Delete</a>
-            </li>
+
         {% endfor %}
-    </ul>
+    </table>
+{% endblock %}
 </body>
 </html>

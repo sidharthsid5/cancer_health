@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{% extends 'patient_header.html' %}
+
+{% block content %}
 <html>
 <head>
     <title>Comments</title>
@@ -10,4 +13,10 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}
+</body>
+</html>
+

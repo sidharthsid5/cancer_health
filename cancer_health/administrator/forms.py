@@ -2,7 +2,7 @@ from django import forms
 from .models import (
     CancerType, ScanType, ScanCenter, CounCenter,
     HairDonCriteria, MedServices, GuideLines, DietaryTip,
-    DietarySupply, Events, Admin, State, Dist
+    DietarySupply, Events, State, Dist
 )
 
 class CancerTypeForm(forms.ModelForm):
@@ -55,10 +55,6 @@ class EventsForm(forms.ModelForm):
         model = Events
         fields = '__all__'
 
-class AdminForm(forms.ModelForm):
-    class Meta:
-        model = Admin
-        fields = '__all__'
 
 class StateForm(forms.ModelForm):
     class Meta:
@@ -69,3 +65,8 @@ class DistForm(forms.ModelForm):
     class Meta:
         model = Dist
         fields = '__all__'
+
+class District(forms.ModelForm):
+    class Meta:
+        model = ScanCenter
+        fields = ('District',)

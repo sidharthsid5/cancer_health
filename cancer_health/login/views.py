@@ -10,10 +10,17 @@ from django.shortcuts import render
 
 # Home Page
 def home(request):
-    return render(request, 'home.html')
+    return redirect(login1)
+    # return HttpResponse("hai<br>"
+    #                     "<a href='register_patient'>Click me</a><br>"
+    #                     "<a href='register_guest'>Click me</a><br>"
+    #                     "<a href=' register_volunteer'>Click me</a><br>"
+    #                     "<a href='login1'>Click me</a><br>"
+    #                     )
 
 
-# Patient Registration
+
+    # Patient Registration
 def register_patient(request):
     form = PatientRegistrationForm(request.POST or None, request.FILES or None)
     if request.method == "POST":
@@ -31,7 +38,7 @@ def register_patient(request):
                     patient = form.save(commit=False)
                     patient.Login = user
                     patient.save()
-                    return redirect('login')
+                    return redirect('login1')
             else:
                 messages.error(request, "Passwords do not match")
 
@@ -56,7 +63,7 @@ def register_guest(request):
                     guest = form.save(commit=False)
                     guest.Login = user
                     guest.save()
-                    return redirect('login')
+                    return redirect('login1')
             else:
                 messages.error(request, "Passwords do not match")
 
@@ -68,14 +75,14 @@ def register_volunteer(request):
     form = VolunteerRegistrationForm(request.POST or None)
     if request.method == "POST" and form.is_valid():
         form.save()
-        return redirect('login')
+        return redirect('login1')
 
     return render(request, "register_volunteer.html", {'form': form})
 
 
 
 # Login
-def login(request):
+def login1(request):
     if request.method == "POST":
         usrname = request.POST.get("username")
         psword = request.POST.get("password")
@@ -85,7 +92,7 @@ def login(request):
             user_id = user_obj.id
 
             if user_obj.is_superuser is True:
-                return HttpResponseRedirect('/Adminhome')  # Replace with your admin home URL
+                return HttpResponseRedirect('/administrator')  # Replace with your admin home URL
 
             try:
                 role_obj = RoleModel.objects.get(Login=user_id)
@@ -93,26 +100,26 @@ def login(request):
 
                 if role_type == 'Patient':
                     patient = Patient.objects.get(Login=user_id)
-                    request.session["Patient_id"] = patient.Patientid
-                    request.session["Patient_name"] = patient.Patname
-                    return HttpResponseRedirect('/PatientHome') # Replace with your patient home URL
+                    request.session["Patient_id"] = patient.id
+                    request.session["Patient_name"] = patient.Name
+                    return HttpResponseRedirect('/patient') # Replace with your patient home URL
                 elif role_type == 'Guest':
                     guest = Guest.objects.get(Login=user_id)
-                    request.session["Guest_id"] = guest.Guestid
+                    request.session["Guest_id"] = guest.id
                     request.session["Guest_name"] = guest.Name
-                    return HttpResponseRedirect('/GuestHome') # Replace with your guest home URL
+                    return HttpResponseRedirect('/guest') # Replace with your guest home URL
                 elif role_type == 'Volunteer':
                     volunteer = Volunteer.objects.get(Login=user_id)
-                    request.session["Volunteer_id"] = volunteer.volunteerId
+                    request.session["Volunteer_id"] = volunteer.id
                     request.session["Volunteer_name"] = "Volunteer" #or whatever name you want.
                     return HttpResponseRedirect('/VolunteerHome') # Replace with your volunteer home URL
 
             except RoleModel.DoesNotExist:
                 messages.error(request, "User has no assigned role.")
-                return redirect('login') #redirect to log in.
+                return redirect('login1') #redirect to log in.
 
         else:
             messages.error(request, 'Invalid credentials')
-            return redirect('login') #redirect to log in.
+            return redirect('login1') #redirect to log in.
 
     return render(request, 'login.html')

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Hair Donation Criteria</title>
 </head>
+{% block content %}
 <body>
     <h1>Hair Donation Criteria</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for hair_don_criteria in hair_don_criterias %}
             <li>
-                {{ hair_don_criteria.criteria }}
+                {{ hair_don_criteria.Criteria }}
                 <a href="{% url 'hair_don_criteria_edit' hair_don_criteria.pk %}">Edit</a>
                 <a href="{% url 'hair_don_criteria_delete' hair_don_criteria.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

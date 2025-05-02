@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Districts</title>
 </head>
+{% block content %}
 <body>
     <h1>Districts</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for dist in dists %}
             <li>
-                {{ dist.districtname }}
+                {{ dist.District }}
                 <a href="{% url 'dist_edit' dist.pk %}">Edit</a>
                 <a href="{% url 'dist_delete' dist.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

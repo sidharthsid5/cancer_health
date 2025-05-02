@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Counseling Centers</title>
 </head>
+{% block content %}
 <body>
     <h1>Counseling Centers</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for coun_center in coun_centers %}
             <li>
-                {{ coun_center.councenter }}
+                {{ coun_center.counsling_center }}
                 <a href="{% url 'coun_center_edit' coun_center.pk %}">Edit</a>
                 <a href="{% url 'coun_center_delete' coun_center.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

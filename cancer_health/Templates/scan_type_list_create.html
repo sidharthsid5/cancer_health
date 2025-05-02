@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Scan Types</title>
 </head>
+{% block content %}
 <body>
     <h1>Scan Types</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for scan_type in scan_types %}
             <li>
-                {{ scan_type.scantype }}
+                {{ scan_type.Scantype }}
                 <a href="{% url 'scan_type_edit' scan_type.pk %}">Edit</a>
                 <a href="{% url 'scan_type_delete' scan_type.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

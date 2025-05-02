@@ -1,28 +1,31 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Guest, HairDonation, Donation
-from .forms import GuestForm, HairDonationForm, DonationForm
+
+from .forms import HairDonationForm, DonationForm
+from .models import HairDonation, Donation
+from login.forms import GuestRegistrationForm
+from login.models import Guest
+
+def homeee(request):
+    # return HttpResponse("hai<br>"
+    #                     "<a href='hair_donation_list_create'>Click me</a><br>"
+    #                     "<a href='donation_list_create'>Click me</a><br>"
+    #
+    #                     )
+    return render(request, 'guest_home.html')
 
 # Guest
-def guest_list_create(request):
-    if request.method == 'POST':
-        form = GuestForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('guest_list_create')
-    else:
-        form = GuestForm()
-    guests = Guest.objects.all()
-    return render(request, 'guest_list_create.html', {'form': form, 'guests': guests})
+
 
 def guest_edit(request, pk):
     guest = get_object_or_404(Guest, pk=pk)
     if request.method == 'POST':
-        form = GuestForm(request.POST, instance=guest)
+        form = GuestRegistrationForm(request.POST, instance=guest)
         if form.is_valid():
             form.save()
             return redirect('guest_list_create')
     else:
-        form = GuestForm(instance=guest)
+        form = GuestRegistrationForm(instance=guest)
     return render(request, 'guest_edit.html', {'form': form})
 
 def guest_delete(request, pk):

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% extends 'patient_header.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+{% block content %}
+<body>
+<form method="post">
+        {% csrf_token %}
+        {{ frm.as_p }}
+        <button type="submit">Search</button>
+ </form>
+<div class="wrapper row2">
+  <section class="hoc container clear">
+
+    <div class="sectiontitle">
+      <h6 class="heading">Sagittis lacus neque ut lorem integer</h6>
+      <p>Elementum nisi ac volutpat vestibulum enim mi tincidunt eros</p>
+    </div>
+    <ul class="nospace group prices">
+{% for x in dataset %}
+      <li class="one_third">
+        <article><i class="fas fa-hands blue"></i>
+          <h6 class="heading">{{x.Center}}</h6>
+          <p>{{x.Address}}</p>
+          <p><sup></sup>{{x.Phone}}<em></em></p>
+
+          <footer><a class="btn" href="{% url 'scan_type_view' x.id%}">Apply</a></footer>
+        </article>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+</div>
+{% endblock %}
+</body>
+</html>

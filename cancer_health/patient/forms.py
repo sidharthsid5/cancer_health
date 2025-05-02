@@ -1,5 +1,6 @@
 from django import forms
-from .models import PatHealthRec, ApplyScan, CounsellingBook, RegFreevig, Comments
+from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthRec
+
 
 class PatHealthRecForm(forms.ModelForm):
     class Meta:

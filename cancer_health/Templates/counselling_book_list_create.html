@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'patient_header.html' %}
 <html>
 <head>
     <title>Counselling Bookings</title>
 </head>
+{% block content %}
 <body>
     <h1>Counselling Bookings</h1>
 
@@ -23,5 +25,6 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

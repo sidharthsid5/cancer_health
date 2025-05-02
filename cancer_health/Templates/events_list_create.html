@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Events</title>
 </head>
+{% block content %}
 <body>
     <h1>Events</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for event in events %}
             <li>
-                {{ event.eventname }}
+                {{ event.Event_title }}
                 <a href="{% url 'events_edit' event.pk %}">Edit</a>
                 <a href="{% url 'events_delete' event.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

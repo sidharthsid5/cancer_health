@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Guide Lines</title>
 </head>
+{% block content %}
 <body>
     <h1>Guide Lines</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for guide_line in guide_lines %}
             <li>
-                {{ guide_line.guideline }}
+                {{ guide_line.Guides }}
                 <a href="{% url 'guide_lines_edit' guide_line.pk %}">Edit</a>
                 <a href="{% url 'guide_lines_delete' guide_line.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

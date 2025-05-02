@@ -1,10 +1,7 @@
 from django import forms
-from .models import Guest, HairDonation, Donation
+from .models import HairDonation, Donation
 
-class GuestForm(forms.ModelForm):
-    class Meta:
-        model = Guest
-        fields = '__all__'
+
 
 class HairDonationForm(forms.ModelForm):
     class Meta:

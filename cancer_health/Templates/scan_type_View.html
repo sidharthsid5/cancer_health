@@ -1,0 +1,63 @@
+{% extends 'patient_header.html' %}
+{% block content %}
+<form method="post" id="form1">
+    {% csrf_token %}
+    <div class="wrapper row2">
+        <section class="hoc container clear">
+            <div class="sectiontitle">
+                <h6 class="heading">Select Scan Types</h6>
+                <p>Choose your desired scans below.</p>
+            </div>
+
+            <ul class="nospace group prices">
+                {% for x in dataset %}
+                <li class="one_third">
+                    <article>
+                        <i class="fas fa-hands blue"></i>
+                        <h6 class="heading">{{ x.Scantype }}</h6>
+                        <p>Discount: ₹{{ x.Discount }}</p>
+                        <p><strong>Price: ₹{{ x.Amount }}</strong></p>
+
+                        <footer>
+                            <input type="checkbox" name="scans" value="{{ x.id }}">
+                        </footer>
+                    </article>
+                </li>
+                {% endfor %}
+            </ul>
+
+            <div style="margin-top: 20px;">
+                <button type="submit">Calculate Total</button>
+            </div>
+</form>
+<form action="{% url 'scanning_booking' %}" id="form2">
+            {% if selected_items %}
+            <div style="margin-top: 30px;">
+                <h4>Selected Scans:</h4>
+                <ul>
+                    {% for item in selected_items %}
+                        <li>{{ item.name }} - ₹{{ item.amount }} - ₹{{ item.discount }} = ₹{{ item.final }}</li>
+                    {% endfor %}
+                </ul>
+                <h4>Total: ₹{{ total }}</h4>
+                <input type="hidden" name="ctr" id="cntreid" value="{{scanningcnre}}">
+
+                <label for="scans">Choose Date</label>
+                <input type="date" name="bkdate">
+               <label for="scans">Choose Time Slot:</label>
+                <select name="Slot" id="scans">
+                  <option value="">-- Select --</option>
+                  <option value="1">10AM to 11AM</option>
+                  <option value="2">11AM to 12PM</option>
+                  <option value="3">1PM to 2PM</option>
+                    <option value="4">2PM to 3PM</option>
+                    <option value="5">3PM to 4PM</option>
+                </select>
+           <button type="submit">Submit</button>
+            </div>
+            {% endif %}
+
+        </section>
+    </div>
+</form>
+{% endblock %}

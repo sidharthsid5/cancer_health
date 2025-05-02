@@ -10,8 +10,8 @@ class PatientRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Patient
-        fields = ['Patname', 'Address', 'Distid', 'Age', 'Gender', 'Photo', 'cancTypeid', 'DetectedDate',
-                  'DetectedHospital', 'Consult_Drname', 'No_months_yr', 'Stage', 'Regdate', 'Status', 'Email', 'Mob']
+        fields = ['id','Name', 'Address', 'District', 'Age', 'Gender', 'Photo', 'Cancer_Type', 'Detected_Date',
+                  'Detected_Hospital', 'Consult_Doctor', 'No_months_per_year', 'Stage', 'Registration_date', 'Status', 'Email', 'Mobile']
 
 # Guest Registration Form
 class GuestRegistrationForm(forms.ModelForm):
@@ -21,10 +21,10 @@ class GuestRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Guest
-        fields = ['Name', 'Address', 'Distid', 'Regdate', 'Phone', 'Mob', 'Email']
+        fields = ['Name', 'Address', 'District', 'Registration_date', 'Phone', 'Mobile', 'Email']
 
 # Volunteer Registration Form
 class VolunteerRegistrationForm(forms.ModelForm):
     class Meta:
         model = Volunteer
-        fields = ['Guestid', 'Regdate', 'apply_area', 'want_loc', 'Status']
+        fields = ['id', 'Registration_date', 'Apply_area', 'Location', 'Status']

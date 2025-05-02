@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Dietary Tips</title>
 </head>
+{% block content %}
 <body>
     <h1>Dietary Tips</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for dietary_tip in dietary_tips %}
             <li>
-                {{ dietary_tip.dietarytip }}
+                {{ dietary_tip.diet_tips }}
                 <a href="{% url 'dietary_tip_edit' dietary_tip.pk %}">Edit</a>
                 <a href="{% url 'dietary_tip_delete' dietary_tip.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Dietary Supplies</title>
 </head>
+{% block content %}
 <body>
     <h1>Dietary Supplies</h1>
 
@@ -17,11 +19,12 @@
     <ul>
         {% for dietary_supply in dietary_supplies %}
             <li>
-                {{ dietary_supply.supply }}
+                {{ dietary_supply.food_group }}
                 <a href="{% url 'dietary_supply_edit' dietary_supply.pk %}">Edit</a>
                 <a href="{% url 'dietary_supply_delete' dietary_supply.pk %}">Delete</a>
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

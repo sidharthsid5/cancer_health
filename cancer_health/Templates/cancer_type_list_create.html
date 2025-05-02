@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% extends 'adminheader.html' %}
 <html>
 <head>
     <title>Cancer Types</title>
 </head>
+{% block content %}
 <body>
     <h1>Cancer Types</h1>
 
@@ -23,5 +25,6 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
 </body>
 </html>

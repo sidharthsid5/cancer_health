@@ -1,45 +1,31 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import (
     CancerType, ScanType, ScanCenter, CounCenter,
     HairDonCriteria, MedServices, GuideLines, DietaryTip,
-    DietarySupply, Events, Admin, State, Dist
+    DietarySupply, Events, State, Dist
 )
 from .forms import (
     CancerTypeForm, ScanTypeForm, ScanCenterForm, CounCenterForm,
     HairDonCriteriaForm, MedServicesForm, GuideLinesForm, DietaryTipForm,
-    DietarySupplyForm, EventsForm, AdminForm, StateForm, DistForm
+    DietarySupplyForm, EventsForm, StateForm, DistForm
 )
-# Admin
-def admin_list_create(request):
-    if request.method == 'POST':
-        form = AdminForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_list_create')
-    else:
-        form = AdminForm()
-    admins = Admin.objects.all()
-    return render(request, 'admin_list_create.html', {'form': form, 'admins': admins})
-
-def admin_edit(request, pk):
-    admin = get_object_or_404(Admin, pk=pk)
-    if request.method == 'POST':
-        form = AdminForm(request.POST, instance=admin)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_list_create')
-    else:
-        form = AdminForm(instance=admin)
-    return render(request, 'admin_edit.html', {'form': form})
-
-def admin_delete(request, pk):
-    admin = get_object_or_404(Admin, pk=pk)
-    if request.method == 'POST':
-        admin.delete()
-        return redirect('admin_list_create')
-    return render(request, 'admin_delete.html', {'admin': admin})
-
-
+def homes(request):
+    # return HttpResponse("hai<br>"
+    #                     "<a href='cancer_type_list_create'>Click me</a><br>"
+    #                     "<a href='state_list_create'>Click me</a><br>"
+    #                     "<a href='dist_list_create'>Click me</a><br>"
+    #                     "<a href='scan_type_list_create'>Click me</a><br>"
+    #                     "<a href='scan_center_list_create'>Click me</a><br>"
+    #                     "<a href='coun_center_list_create'>Click me</a><br>"
+    #                     "<a href='hair_don_criteria_list_create'>Click me</a><br>"
+    #                     "<a href='med_services_list_create'>Click me</a><br>"
+    #                     "<a href='guide_lines_list_create'>Click me</a><br>"
+    #                     "<a href='dietary_tip_list_create'>Click me</a><br>"
+    #                     "<a href='dietary_supply_list_create'>Click me</a><br>"
+    #                     "<a href='events_list_create'>Click me</a><br>"
+    #                     )
+    return render(request,'admin_home.html')
 # CancerType
 def cancer_type_list_create(request):
     if request.method == 'POST':
