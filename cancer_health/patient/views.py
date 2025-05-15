@@ -205,10 +205,10 @@ def scan_type_view(request,scnid):
     }
     return render(request, 'scan_type_View.html', context)
 
-def scanning_booking(request):
-    patid=request.session["Patient_id"]
-    if request.method == 'POST':
-        try:
-            Scan_Type=
-
-        return redirect()
+# def scanning_booking(request):
+#     patid=request.session["Patient_id"]
+#     if request.method == 'POST':
+#         try:
+#             Scan_Type=
+#
+#         return redirect()
