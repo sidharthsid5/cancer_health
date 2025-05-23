@@ -1,62 +1,31 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
 <title>Trealop</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+<style>
+  /* Optional: Add this to your layout.css for better practice */
+  /* If you want to control the height of the image container */
+  .wrapper.bgded {
+    min-height: 500px; /* Adjust this value as needed for your image's height */
+    background-size: cover; /* Ensures the background image covers the entire element */
+    background-position: center center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+  }
+</style>
 </head>
 <body id="top">
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row0">
-  <div id="topbar" class="hoc clear">
-    <div class="fl_left">
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><i class="fas fa-phone rgtspace-5"></i> +00 (123) 456 7890</li>
-        <li><i class="far fa-envelope rgtspace-5"></i> info@domain.com</li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-    <div class="fl_right">
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><a href="index.html"><i class="fas fa-home"></i></a></li>
-        <li><a href="#" title="Help Centre"><i class="far fa-life-ring"></i></a></li>
-        <li><a href="#" title="Login"><i class="fas fa-sign-in-alt"></i></a></li>
-        <li><a href="#" title="Sign Up"><i class="fas fa-edit"></i></a></li>
-        <li id="searchform">
-          <div>
-            <form action="#" method="post">
-              <fieldset>
-                <legend>Quick Search:</legend>
-                <input type="text" placeholder="Enter search term&hellip;">
-                <button type="submit"><i class="fas fa-search"></i></button>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row1">
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left">
-      <!-- ################################################################################################ -->
       <h1><a href="{% url 'homes' %}">ADMIN-HOME</a></h1>
-      <!-- ################################################################################################ -->
-    </div>
+      </div>
     <nav id="mainav" class="fl_right">
-      <!-- ################################################################################################ -->
       <ul class="clear">
         <li class="active"><a href="{% url 'homes' %}">Home</a></li>
         <li><a class="drop" href="#">Pages</a>
@@ -81,44 +50,23 @@
         </li>
         <li><a href="#">Log Out</a></li>
       </ul>
-      <!-- ################################################################################################ -->
-    </nav>
+      </nav>
   </header>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay gradient" style="background-image:url('images/demo/backgrounds/01.png');">
+<div class="wrapper bgded " style="background-image:url('https://plus.unsplash.com/premium_photo-1681966826227-d008a1cfe9c7?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
   <div id="pageintro" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <article>
-      <p>Eu leo curabitur eleifend sapien</p>
-      <h3 class="heading">Sed eros nullam quis ligula</h3>
-      <p>Elementum lectus varius aliquet quisque fringilla est in porttitor</p>
-      <footer>
-        <ul class="nospace inline pushright">
-          <li><a class="btn" href="#">Ultricies dui orci</a></li>
-          <li><a class="btn inverse" href="#">Mollis libero quis</a></li>
-        </ul>
-      </footer>
-    </article>
-    <!-- ################################################################################################ -->
-  </div>
+    </div>
 </div>
 
-<div class="wrapper row3">
-  <section id="cta" class="hoc container clear">
-    {% block content %}
+<!--<div class="wrapper row3">-->
+<!--  <section id="cta" class="hoc container clear">-->
+<!--    {% block content %}-->
 
-    {% endblock %}
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+<!--    {% endblock %}-->
+<!--  </section>-->
+<!--</div>-->
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear">
-    <!-- ################################################################################################ -->
     <div class="one_quarter first">
       <h6 class="heading">A convallis ultricies</h6>
       <p>Luctus et dolor nulla facilisi fusce sit amet magna non odio molestie egestas nullam id odio.</p>
@@ -170,25 +118,15 @@
         </fieldset>
       </form>
     </div>
-    <!-- ################################################################################################ -->
-  </footer>
+    </footer>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear">
-    <!-- ################################################################################################ -->
     <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
     <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    <!-- ################################################################################################ -->
-  </div>
+    </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
-<!-- JAVASCRIPTS -->
 <script src="{% static 'layout/scripts/jquery.min.js' %}"></script>
 <script src="{% static 'layout/scripts/jquery.backtotop.js' %}"></script>
 <script src="{% static 'layout/scripts/jquery.mobilemenu.js' %}"></script>

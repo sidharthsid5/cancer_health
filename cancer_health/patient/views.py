@@ -6,9 +6,8 @@ from administrator.forms import District
 from administrator.models import ScanCenter
 
 from administrator.models import ScanType
-
-from login.models import Patient
-
+from django.http import HttpResponse
+from .models import ApplyScan, Patient
 
 def homee(request):
     # return HttpResponse("hai<br>"
@@ -243,8 +242,7 @@ def scan_type_view(request,scnid):
 #         return redirect('homee')  # Or any success page
 
 
-from django.http import HttpResponse
-from .models import ApplyScan, Patient
+
 
 def getAppointment(request):
     context = {}

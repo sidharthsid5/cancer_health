@@ -1,5 +1,230 @@
 {% extends 'patient_header.html' %}
 {% block content %}
+<style>
+  /* General Body and Container Adjustments */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Light background for the whole page */
+  }
+
+  .wrapper.row2 {
+    padding: 30px 0; /* Add some vertical padding to the main content area */
+  }
+
+  .hoc.container.clear {
+    max-width: 1200px; /* Limit content width for better readability */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Horizontal padding */
+  }
+
+  /* Section Title Styling */
+  .sectiontitle {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  .sectiontitle .heading {
+    font-size: 2em;
+    font-weight: bold;
+    color: #6772e5;
+    margin-bottom: 10px;
+  }
+
+  .sectiontitle p {
+    font-size: 1.1em;
+    color: #555;
+  }
+
+
+  .prices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 40px 0;
+  }
+
+  .prices li {
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+
+  .prices li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .prices li article i {
+    font-size: 2.5em;
+    color: #8e44ad;
+    margin-bottom: 15px;
+  }
+
+  .prices li h6 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #9b59b6;
+    margin-bottom: 10px;
+  }
+
+  .prices li p {
+    color: #555;
+    margin: 8px 0;
+    font-size: 1.05em;
+  }
+
+  .prices li p strong {
+    color: #333;
+    font-size: 1.1em;
+  }
+
+
+  .prices li footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .prices li input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #6772e5;
+    border-radius: 4px;
+    position: relative;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .prices li input[type="checkbox"]:checked {
+    background-color: #6772e5;
+    border-color: #6772e5;
+  }
+
+  .prices li input[type="checkbox"]:checked::after {
+    content: '\2713';
+    font-size: 14px;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .prices li label {
+    font-size: 1.1em;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+
+  form button {
+    background-color: #6772e5;
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+  }
+
+  form button:hover {
+    background-color: #5058c7;
+  }
+
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  table thead tr {
+    background-color: #e9ecef;
+    text-align: left;
+  }
+
+  table th,
+  table td {
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    vertical-align: middle;
+  }
+
+  table th {
+    font-weight: bold;
+    color: #343a40;
+  }
+
+  table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+
+  table tfoot tr {
+    background-color: #e9ecef;
+    font-weight: bold;
+    color: #343a40;
+  }
+
+
+  input[type="date"],
+  select {
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    width: 220px;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 10px;
+
+
+  }
+
+  label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+
+  }
+
+
+  #scan-selection-form,
+  #booking-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+
+  #scan-selection-form > div,
+ #booking-form > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px; /* spacing between fields */
+}
+
+
+</style>
+
 <div class="wrapper row2">
     <section class="hoc container clear">
         <div class="sectiontitle">
@@ -7,8 +232,7 @@
             <p>Choose your desired scans below.</p>
         </div>
 
-        <!-- Scan selection form -->
-        <form method="post"  id="scan-selection-form">
+        <form method="post" id="scan-selection-form">
             {% csrf_token %}
             <ul class="nospace group prices">
                 {% for x in dataset %}
@@ -33,33 +257,32 @@
         </form>
 
         {% if selected_items %}
-        <!-- Booking form -->
-        <form  method="post" action="{% url 'getAppointment' %}" id="booking-form" style="margin-top: 40px;">
+        <form method="post" action="{% url 'getAppointment' %}" id="booking-form" style="margin-top: 40px;">
             {% csrf_token %}
             <h4>Selected Scans</h4>
             <table style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
                 <thead>
-                    <tr style="background-color: #f0f0f0; text-align: left;">
-                        <th style="padding: 8px; border: 1px solid #ddd;">Scan Name</th>
-                        <th style="padding: 8px; border: 1px solid #ddd;">Price (₹)</th>
-                        <th style="padding: 8px; border: 1px solid #ddd;">Discount (₹)</th>
-                        <th style="padding: 8px; border: 1px solid #ddd;">Final (₹)</th>
+                    <tr>
+                        <th>Scan Name</th>
+                        <th>Price (₹)</th>
+                        <th>Discount (₹)</th>
+                        <th>Final (₹)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in selected_items %}
                     <tr>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.name }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.amount }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.discount }}</td>
-                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">{{ item.final }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.amount }}</td>
+                        <td>{{ item.discount }}</td>
+                        <td>{{ item.final }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
-                    <tr style="background-color: #f9f9f9;">
-                        <td colspan="3" style="padding: 8px; border: 1px solid #ddd; text-align: right; font-weight: bold;">Total</td>
-                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">₹{{ total }}</td>
+                    <tr>
+                        <td colspan="3" style="text-align: right;">Total</td>
+                        <td>₹{{ total }}</td>
                     </tr>
                 </tfoot>
             </table>
@@ -68,13 +291,13 @@
             <input type="hidden" name="amount" id="amount" value="{{ total }}">
 
             <div style="margin-bottom: 15px;">
-                <label for="bkdate" style="display:block; margin-bottom: 5px;">Choose Date:</label>
-                <input type="date" id="bkdate" name="bkdate" required style="padding: 6px; width: 200px;">
+                <label for="bkdate">Choose Date:</label>
+                <input type="date" id="bkdate" name="bkdate" required>
             </div>
 
             <div style="margin-bottom: 20px;">
-                <label for="slot" style="display:block; margin-bottom: 5px;">Choose Time Slot:</label>
-                <select name="Slot" id="slot" required style="padding: 6px; width: 220px;">
+                <label for="slot">Choose Time Slot:</label>
+                <select name="Slot" id="slot" required>
                     <option value="" disabled selected>-- Select --</option>
                     <option value="1">10AM to 11AM</option>
                     <option value="2">11AM to 12PM</option>
@@ -84,7 +307,7 @@
                 </select>
             </div>
 
-            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Apply for Appointment</button>
+            <button type="submit">Apply for Appointment</button>
         </form>
         {% endif %}
     </section>

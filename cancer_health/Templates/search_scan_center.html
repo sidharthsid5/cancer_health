@@ -1,39 +1,131 @@
 <!DOCTYPE html>
 {% extends 'patient_header.html' %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 {% block content %}
-<body>
+<style>
+  /* Form and Search Button Styling */
+  form {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    margin: 30px 0;
+    padding: 0; /* Remove default padding */
+  }
+
+  form p {
+    width: 100%; /* Allow paragraphs to take full width */
+    max-width: 300px; /* Limit width for better appearance */
+    text-align: center; /* Center the label and input */
+    margin-bottom: 15px; /* Space between form fields */
+  }
+
+  form label {
+    font-weight: bold;
+    color: #4CAF50; /* A nice green color for the label */
+    display: block; /* Make label a block element for spacing */
+    margin-bottom: 5px; /* Space between label and input */
+  }
+
+  form select {
+    width: 100%; /* Make dropdown wider */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+
+  form button {
+    background-color: #6772e5;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Space above the search button */
+  }
+
+  form button:hover {
+    opacity: 0.9;
+  }
+
+  /* Existing Styles for Prices */
+  .prices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 40px 0;
+  }
+
+  .prices li {
+    list-style: none;
+    background-color: #f9f5ff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .prices li article i {
+    font-size: 2em;
+    color: #8e44ad;
+    margin-bottom: 10px;
+  }
+
+  .prices li h6 {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #9b59b6;
+    margin-bottom: 10px;
+  }
+
+  .prices li p {
+    color: #555;
+    margin: 5px 0;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #27ae60;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .btn:hover {
+    background-color: #219150;
+  }
+</style>
+
 <form method="post">
-        {% csrf_token %}
-        {{ frm.as_p }}
-        <button type="submit">Search</button>
- </form>
+  {% csrf_token %}
+  {{ frm.as_p }}
+  <button type="submit">Search</button>
+</form>
+
 <div class="wrapper row2">
   <section class="hoc container clear">
-
-    <div class="sectiontitle">
-      <h6 class="heading">Sagittis lacus neque ut lorem integer</h6>
-      <p>Elementum nisi ac volutpat vestibulum enim mi tincidunt eros</p>
-    </div>
     <ul class="nospace group prices">
-{% for x in dataset %}
+      {% for x in dataset %}
       <li class="one_third">
-        <article><i class="fas fa-hands blue"></i>
-          <h6 class="heading">{{x.Center}}</h6>
-          <p>{{x.Address}}</p>
-          <p><sup></sup>{{x.Phone}}<em></em></p>
-
-          <footer><a class="btn" href="{% url 'scan_type_view' x.id%}">Apply</a></footer>
+        <article>
+          <i class="fas fa-hands blue"></i>
+          <h6 class="heading">{{ x.Center }}</h6>
+          <p>{{ x.Address }}</p>
+          <p>{{ x.Phone }}</p>
+          <footer>
+            <a class="btn" href="{% url 'scan_type_view' x.id %}">Apply</a>
+          </footer>
         </article>
       </li>
+
       {% endfor %}
     </ul>
   </section>
 </div>
 {% endblock %}
-</body>
-</html>
