@@ -8,7 +8,7 @@ from login.models import Patient
 class PatHealthRec(models.Model):
     Recorded = models.AutoField(primary_key=True)
     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
-    Record_details = models.IntegerField()
+    Records_Detected = models.IntegerField()
     Previous_hospital = models.CharField(max_length=30,null=True)
     Treat_file = models.CharField(max_length=30,null=True)  # Consider FileField for actual files
 

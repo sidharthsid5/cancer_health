@@ -7,6 +7,8 @@ from administrator.models import ScanCenter
 
 from administrator.models import ScanType
 
+from login.models import Patient
+
 
 def homee(request):
     # return HttpResponse("hai<br>"
@@ -22,8 +24,10 @@ def pat_health_rec_list_create(request):
     if request.method == 'POST':
         form = PatHealthRecForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('pat_health_rec_list_create')
+           obj = form.save()
+           obj.Patient =Patient.objects.get(id=request.session["Patient_id"])
+           obj.save()
+           return redirect('pat_health_rec_list_create')
     else:
         form = PatHealthRecForm()
     pat_health_recs = PatHealthRec.objects.all()

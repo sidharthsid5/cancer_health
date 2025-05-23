@@ -5,26 +5,184 @@
     <title>Patient Health Records</title>
 </head>
 {% block content %}
-<body>
-    <h1>Patient Health Records</h1>
 
-    <h2>Add New Health Record</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<style>
+  h1 {
+    text-align: center;
+    color: #8e44ad;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 2.8em;
+    text-decoration: underline;
+    padding-bottom: 50px;
+  }
 
-    <h2>Existing Health Records</h2>
-    <ul>
-        {% for pat_health_rec in pat_health_recs %}
-            <li>
-                Record ID: {{ pat_health_rec.Recorded }} - Patient: {{ pat_health_rec.patientId }}
-                <a href="{% url 'pat_health_rec_edit' pat_health_rec.pk %}">Edit</a>
-                <a href="{% url 'pat_health_rec_delete' pat_health_rec.pk %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+  h2 {
+    text-align: center;
+    color: #9b59b6;
+    margin: 10px 0 20px;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  form {
+    padding: 20px;
+    text-align: left;
+    width: 400px; /* Adjust width as needed */
+    background-color: #f9f5ff; /* Light purple background for form */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #6c5ce7; /* Slightly darker purple for labels */
+  }
+
+  form input[type="text"],
+  form input[type="date"],
+  form input[type="number"],
+  form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-save {
+    background-color: #6772e5; /* Blue-ish purple for save */
+  }
+
+  .btn-edit {
+    background-color: #27ae60; /* Green for edit */
+  }
+
+  .btn-delete {
+    background-color: #e74c3c; /* Red for delete */
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  table {
+    margin: 0 auto 40px;
+    width: 80%; /* Adjust width as needed */
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    background-color: #f9f5ff; /* Light purple background for table */
+    border-radius: 8px;
+    overflow: hidden; /* To contain the border-radius of header and rows */
+  }
+
+  th, td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+
+  th {
+    background-color: #9b59b6; /* Lighter purple for table header */
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f3eaff; /* Even row background */
+  }
+
+  .record-item {
+    background-color: #f9f5ff; /* Light purple background for list items */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .record-item a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #6772e5; /* Blue-ish purple for links */
+    font-weight: bold;
+  }
+
+  .record-item a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<h1>Patient Health Records</h1>
+
+<h2>Add New Health Record</h2>
+<div class="form-container">
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<h2>Existing Health Records</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Record ID</th>
+      <th>Records Detected</th>
+      <th>Previous hospital</th>
+        <th>Treat Files</th>
+        <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for pat_health_rec in pat_health_recs %}
+    <tr>
+      <td>{{ pat_health_rec.Recorded }}</td>
+      <td>{{ pat_health_rec.Records_Detected }}</td>
+        <td>{{ pat_health_rec.Previous_hospital }}</td>
+         <td>{{ pat_health_rec.Treat_file }}</td>
+
+
+      <td>
+        <a href="{% url 'pat_health_rec_edit' pat_health_rec.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'pat_health_rec_delete' pat_health_rec.pk %}" class="btn btn-delete">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}
-</body>
-</html>

@@ -52,19 +52,19 @@
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left">
       <!-- ################################################################################################ -->
-      <h1><a href="{% url 'homes' %}">Trealop</a></h1>
+
       <!-- ################################################################################################ -->
     </div>
     <nav id="mainav" class="fl_right">
       <!-- ################################################################################################ -->
       <ul class="clear">
-        <li class="active"><a href="{% url 'homes' %}">Home</a></li>
+        <li class="active"><a href="{% url 'homee' %}">Home</a></li>
         <li><a class="drop" href="#">Services</a>
           <ul>
             <li><a href="{% url 'pat_health_rec_list_create' %}">Submit Health Record</a></li>
             <li><a href="{% url 'apply_scan_list_create' %}">Apply for scan</a></li>
             <li><a href="{% url 'counselling_book_list_create' %}">Book Counselling</a></li>
-            <li><a href="{% url 'reg_freevig_list_create' %}">Apply forf free vig</a></li>
+            <li><a href="{% url 'reg_freevig_list_create' %}">Apply for free vig</a></li>
             <li><a href="{% url 'comments_list_create' %}">Sent Comments</a></li>
 
           </ul>
@@ -72,6 +72,7 @@
         <li><a class="drop" href="#">Guidlines</a>
           <ul>
             <li><a href="{% url 'guide_lines_list_create' %}">Guidlines</a></li>
+            <li><a href="{% url 'search_scan_center' %}">Search Scan Center</a></li>
           </ul>
         </li>
         <li><a href="#">Log Out</a></li>

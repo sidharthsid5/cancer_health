@@ -1,30 +1,131 @@
 <!DOCTYPE html>
 {% extends 'adminheader.html' %}
-<html>
-<head>
-    <title>Guide Lines</title>
-</head>
 {% block content %}
-<body>
-    <h1>Guide Lines</h1>
 
-    <h2>Add New Guide Line</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<style>
+  h1 {
+    text-align: center;
+    color: #0063CC;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 2.8em;
+    text-decoration: underline;
+    padding-bottom: 50px;
+  }
 
-    <h2>Existing Guide Lines</h2>
-    <ul>
-        {% for guide_line in guide_lines %}
-            <li>
-                {{ guide_line.Guides }}
-                <a href="{% url 'guide_lines_edit' guide_line.pk %}">Edit</a>
-                <a href="{% url 'guide_lines_delete' guide_line.pk %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+  h2 {
+    text-align: center;
+    color: #007BFF;
+    margin: 10px 0 20px;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  form {
+    padding: 20px;
+    text-align: left;
+    width: 400px; /* Adjust width as needed */
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  form input[type="text"],
+  form input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+  }
+
+  .btn-save {
+    background-color: #007BFF;
+  }
+
+  .btn-edit {
+    background-color: #28a745;
+    margin-bottom: 8px;
+  }
+
+  .btn-delete {
+    background-color: #dc3545;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  table {
+    margin: 0 auto 40px;
+    width: 70%; /* Adjust width as needed */
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  th, td {
+    padding: 12px 20px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+
+  th {
+    background-color: #007BFF;
+    color: white;
+    text-transform: uppercase;
+  }
+</style>
+
+<h1>Guide Lines</h1>
+
+<h2>Add New Guide Line</h2>
+<div class="form-container">
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<h2>Existing Guide Lines</h2>
+<table>
+  <tr>
+    <th>Guide</th>
+    <th>Added Date</th>
+    <th>Actions</th>
+  </tr>
+  {% for guide_line in guide_lines %}
+  <tr>
+    <td>{{ guide_line.Guides }}</td>
+    <td>{{ guide_line.added_date }}</td>
+    <td>
+      <a href="{% url 'guide_lines_edit' guide_line.pk %}" class="btn btn-edit">Edit</a>
+      <a href="{% url 'guide_lines_delete' guide_line.pk %}" class="btn btn-delete">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
 {% endblock %}
-</body>
-</html>

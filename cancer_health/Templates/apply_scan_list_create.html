@@ -5,26 +5,174 @@
     <title>Apply Scans</title>
 </head>
 {% block content %}
-<body>
-    <h1>Apply Scans</h1>
 
-    <h2>Apply for a Scan</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<style>
+  h1 {
+    text-align: center;
+    color: #8e44ad;
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 2.8em;
+    text-decoration: underline;
+    padding-bottom: 50px;
+  }
 
-    <h2>Existing Scan Applications</h2>
-    <ul>
-        {% for apply_scan in apply_scans %}
-            <li>
-                Scan ID: {{ apply_scan.Scanid }} - Patient: {{ apply_scan.patientId }}
-                <a href="{% url 'apply_scan_edit' apply_scan.pk %}">Edit</a>
-                <a href="{% url 'apply_scan_delete' apply_scan.pk %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+  h2 {
+    text-align: center;
+    color: #9b59b6;
+    margin: 10px 0 20px;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  form {
+    padding: 20px;
+    text-align: left;
+    width: 600px;
+    background-color: #f9f5ff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #6c5ce7;
+  }
+
+  form select,
+  form input[type="text"],
+  form input[type="date"],
+  form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-save {
+    background-color: #6772e5; /* Blue-ish purple for save */
+  }
+
+  .btn-edit {
+    background-color: #27ae60; /* Green for edit */
+  }
+
+  .btn-delete {
+    background-color: #e74c3c; /* Red for delete */
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  table {
+    margin: 0 auto 40px;
+    width: 95%; /* Increased width to accommodate more columns */
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    background-color: #f9f5ff; /* Light purple background for table */
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+
+  th {
+    background-color: #9b59b6; /* Lighter purple for table header */
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f3eaff; /* Even row background */
+  }
+
+  td:last-child {
+    text-align: center; /* Center action buttons */
+  }
+</style>
+
+<h1>Apply Scans</h1>
+
+<h2>Apply for a Scan</h2>
+<div class="form-container">
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<h2>Existing Scan Applications</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Scan Type</th>
+      <th>Scan Center</th>
+      <th>Patient</th>
+      <th>Apply Date</th>
+      <th>Booking Date</th>
+      <th>Preferred Time</th>
+      <th>Status</th>
+      <th>Apply Location</th>
+      <th>Coupon Number</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for apply_scan in apply_scans %}
+    <tr>
+      <td>{{ apply_scan.Scan_Type }}</td>
+      <td>{{ apply_scan.scan_center }}</td>
+      <td>{{ apply_scan.Patient }}</td>
+      <td>{{ apply_scan.apply_date }}</td>
+      <td>{{ apply_scan.booking_date }}</td>
+      <td>{{ apply_scan.Preferred_time }}</td>
+      <td>{{ apply_scan.Status }}</td>
+      <td>{{ apply_scan.Apply_location }}</td>
+      <td>{{ apply_scan.coupon_number }}</td>
+      <td>
+        <a href="{% url 'apply_scan_edit' apply_scan.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'apply_scan_delete' apply_scan.pk %}" class="btn btn-delete">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}
-</body>
-</html>

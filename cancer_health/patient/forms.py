@@ -5,7 +5,7 @@ from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthR
 class PatHealthRecForm(forms.ModelForm):
     class Meta:
         model = PatHealthRec
-        fields = '__all__'
+        fields = 'Records_Detected','Previous_hospital','Treat_file'
 
 class ApplyScanForm(forms.ModelForm):
     class Meta:

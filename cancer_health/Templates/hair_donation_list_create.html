@@ -5,26 +5,159 @@
     <title>Hair Donations</title>
 </head>
 {% block content %}
-<body>
-    <h1>Hair Donations</h1>
 
-    <h2>Add New Hair Donation</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save</button>
-    </form>
+<style>
+  h1 {
+    text-align: center;
+    color: #2c3e50; /* Dark blue-gray for guest pages heading */
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 2.8em;
+    text-decoration: underline;
+    padding-bottom: 50px;
+  }
 
-    <h2>Existing Hair Donations</h2>
-    <ul>
-        {% for hair_donation in hair_donations %}
-            <li>
-                {{ hair_donation.Guestid }} - {{ hair_donation.length }}
-                <a href="{% url 'hair_donation_edit' hair_donation.pk %}">Edit</a>
-                <a href="{% url 'hair_donation_delete' hair_donation.pk %}">Delete</a>
-            </li>
-        {% endfor %}
-    </ul>
+  h2 {
+    text-align: center;
+    color: #34495e; /* Slightly lighter blue-gray for subheadings */
+    margin: 10px 0 20px;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  .form-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  form {
+    padding: 20px;
+    text-align: left;
+    width: 400px; /* Adjust width as needed */
+    background-color: #f0f3f4; /* Light gray background for form */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  form p {
+    margin-bottom: 15px;
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #2c3e50; /* Dark blue-gray for labels */
+  }
+
+  form input[type="text"],
+  form input[type="email"],
+  form input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #bdc3c7;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-save {
+    background-color: #3498db; /* Blue for save */
+  }
+
+  .btn-edit {
+    background-color: #2ecc71; /* Green for edit */
+  }
+
+  .btn-delete {
+    background-color: #e74c3c; /* Red for delete */
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  table {
+    margin: 0 auto 40px;
+    width: 80%; /* Adjust width as needed */
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    background-color: #f0f3f4; /* Light gray background for table */
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background-color: #34495e; /* Slightly lighter blue-gray for table header */
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:nth-child(even) {
+    background-color: #ecf0f1; /* Even row background */
+  }
+
+  td:last-child {
+    text-align: center; /* Center action buttons */
+  }
+</style>
+
+<h1>Hair Donations</h1>
+
+<h2>Add New Hair Donation</h2>
+<div class="form-container">
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+
+<h2>Existing Hair Donations</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Guest ID</th>
+      <th>Length</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for hair_donation in hair_donations %}
+    <tr>
+      <td>{{ hair_donation.Guestid }}</td>
+      <td>{{ hair_donation.length }}</td>
+      <td>
+        <a href="{% url 'hair_donation_edit' hair_donation.pk %}" class="btn btn-edit">Edit</a>
+        <a href="{% url 'hair_donation_delete' hair_donation.pk %}" class="btn btn-delete">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+      {% endfor %}
+</table>
+
 {% endblock %}
-</body>
-</html>

@@ -92,7 +92,7 @@ def login1(request):
             user_id = user_obj.id
 
             if user_obj.is_superuser is True:
-                return HttpResponseRedirect('/administrator')  # Replace with your admin home URL
+                return HttpResponseRedirect('/administrator')
 
             try:
                 role_obj = RoleModel.objects.get(Login=user_id)
@@ -102,17 +102,17 @@ def login1(request):
                     patient = Patient.objects.get(Login=user_id)
                     request.session["Patient_id"] = patient.id
                     request.session["Patient_name"] = patient.Name
-                    return HttpResponseRedirect('/patient') # Replace with your patient home URL
+                    return HttpResponseRedirect('/patient')
                 elif role_type == 'Guest':
                     guest = Guest.objects.get(Login=user_id)
                     request.session["Guest_id"] = guest.id
                     request.session["Guest_name"] = guest.Name
-                    return HttpResponseRedirect('/guest') # Replace with your guest home URL
+                    return HttpResponseRedirect('/guest')
                 elif role_type == 'Volunteer':
                     volunteer = Volunteer.objects.get(Login=user_id)
                     request.session["Volunteer_id"] = volunteer.id
-                    request.session["Volunteer_name"] = "Volunteer" #or whatever name you want.
-                    return HttpResponseRedirect('/VolunteerHome') # Replace with your volunteer home URL
+                    request.session["Volunteer_name"] = "Volunteer"
+                    return HttpResponseRedirect('/VolunteerHome')
 
             except RoleModel.DoesNotExist:
                 messages.error(request, "User has no assigned role.")
