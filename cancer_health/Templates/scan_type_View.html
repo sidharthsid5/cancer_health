@@ -1,25 +1,26 @@
 {% extends 'patient_header.html' %}
 {% block content %}
-<form method="post" id="form1">
-    {% csrf_token %}
-    <div class="wrapper row2">
-        <section class="hoc container clear">
-            <div class="sectiontitle">
-                <h6 class="heading">Select Scan Types</h6>
-                <p>Choose your desired scans below.</p>
-            </div>
+<div class="wrapper row2">
+    <section class="hoc container clear">
+        <div class="sectiontitle">
+            <h6 class="heading">Select Scan Types</h6>
+            <p>Choose your desired scans below.</p>
+        </div>
 
+        <!-- Scan selection form -->
+        <form method="post"  id="scan-selection-form">
+            {% csrf_token %}
             <ul class="nospace group prices">
                 {% for x in dataset %}
                 <li class="one_third">
                     <article>
                         <i class="fas fa-hands blue"></i>
-                        <h6 class="heading">{{ x.Scantype }}</h6>
+                        <h6 class="heading">{{ x.Scan_Type }}</h6>
                         <p>Discount: ₹{{ x.Discount }}</p>
                         <p><strong>Price: ₹{{ x.Amount }}</strong></p>
-
                         <footer>
-                            <input type="checkbox" name="scans" value="{{ x.id }}">
+                            <input type="checkbox" name="scans" value="{{ x.id }}" id="scan-{{ x.id }}">
+                            <label for="scan-{{ x.id }}">Select</label>
                         </footer>
                     </article>
                 </li>
@@ -29,35 +30,63 @@
             <div style="margin-top: 20px;">
                 <button type="submit">Calculate Total</button>
             </div>
-</form>
-<form action="{% url 'scanning_booking' %}" id="form2">
-            {% if selected_items %}
-            <div style="margin-top: 30px;">
-                <h4>Selected Scans:</h4>
-                <ul>
-                    {% for item in selected_items %}
-                        <li>{{ item.name }} - ₹{{ item.amount }} - ₹{{ item.discount }} = ₹{{ item.final }}</li>
-                    {% endfor %}
-                </ul>
-                <h4>Total: ₹{{ total }}</h4>
-                <input type="hidden" name="ctr" id="cntreid" value="{{scanningcnre}}">
+        </form>
 
-                <label for="scans">Choose Date</label>
-                <input type="date" name="bkdate">
-               <label for="scans">Choose Time Slot:</label>
-                <select name="Slot" id="scans">
-                  <option value="">-- Select --</option>
-                  <option value="1">10AM to 11AM</option>
-                  <option value="2">11AM to 12PM</option>
-                  <option value="3">1PM to 2PM</option>
+        {% if selected_items %}
+        <!-- Booking form -->
+        <form  method="post" action="{% url 'getAppointment' %}" id="booking-form" style="margin-top: 40px;">
+            {% csrf_token %}
+            <h4>Selected Scans</h4>
+            <table style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
+                <thead>
+                    <tr style="background-color: #f0f0f0; text-align: left;">
+                        <th style="padding: 8px; border: 1px solid #ddd;">Scan Name</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Price (₹)</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Discount (₹)</th>
+                        <th style="padding: 8px; border: 1px solid #ddd;">Final (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in selected_items %}
+                    <tr>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.name }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.amount }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd;">{{ item.discount }}</td>
+                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">{{ item.final }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr style="background-color: #f9f9f9;">
+                        <td colspan="3" style="padding: 8px; border: 1px solid #ddd; text-align: right; font-weight: bold;">Total</td>
+                        <td style="padding: 8px; border: 1px solid #ddd; font-weight: bold;">₹{{ total }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <input type="hidden" name="ctr" id="cntreid" value="{{ scanningcnre }}">
+            <input type="hidden" name="amount" id="amount" value="{{ total }}">
+
+            <div style="margin-bottom: 15px;">
+                <label for="bkdate" style="display:block; margin-bottom: 5px;">Choose Date:</label>
+                <input type="date" id="bkdate" name="bkdate" required style="padding: 6px; width: 200px;">
+            </div>
+
+            <div style="margin-bottom: 20px;">
+                <label for="slot" style="display:block; margin-bottom: 5px;">Choose Time Slot:</label>
+                <select name="Slot" id="slot" required style="padding: 6px; width: 220px;">
+                    <option value="" disabled selected>-- Select --</option>
+                    <option value="1">10AM to 11AM</option>
+                    <option value="2">11AM to 12PM</option>
+                    <option value="3">1PM to 2PM</option>
                     <option value="4">2PM to 3PM</option>
                     <option value="5">3PM to 4PM</option>
                 </select>
-           <button type="submit">Submit</button>
             </div>
-            {% endif %}
 
-        </section>
-    </div>
-</form>
+            <button type="submit" style="padding: 10px 20px; background-color: #007bff; color: white; border: none; cursor: pointer;">Apply for Appointment</button>
+        </form>
+        {% endif %}
+    </section>
+</div>
 {% endblock %}

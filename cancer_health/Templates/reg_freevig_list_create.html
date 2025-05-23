@@ -80,6 +80,12 @@
     background-color: #6772e5; /* Blue-ish purple for save */
   }
 
+  form button.btn-save {
+  display: block;
+  margin: 0 auto;
+}
+
+
   .btn-edit {
     background-color: #27ae60; /* Green for edit */
   }
@@ -135,7 +141,7 @@
   <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit" class="btn btn-save">Save</button>
+      <button type="submit" class="btn btn-save">Apply Now</button>
   </form>
 </div>
 
@@ -144,15 +150,17 @@
   <thead>
     <tr>
       <th>Registration ID</th>
-      <th>Patient ID</th>
+      <th>Registration Date</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for reg_freevig in reg_freevigs %}
     <tr>
-      <td>{{ reg_freevig.Regid }}</td>
-      <td>{{ reg_freevig.patientId }}</td>
+      <td>{{ reg_freevig.Registration_id }}</td>
+      <td>{{ reg_freevig.Registration_date }}</td>
+      <td>{{ reg_freevig.Status }}</td>
       <td>
         <a href="{% url 'reg_freevig_edit' reg_freevig.pk %}" class="btn btn-edit">Edit</a>
         <a href="{% url 'reg_freevig_delete' reg_freevig.pk %}" class="btn btn-delete">Delete</a>

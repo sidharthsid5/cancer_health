@@ -22,7 +22,7 @@ def homee(request):
 # PatHealthRec
 def pat_health_rec_list_create(request):
     if request.method == 'POST':
-        form = PatHealthRecForm(request.POST)
+        form = PatHealthRecForm(request.POST,request.FILES)
         if form.is_valid():
            obj = form.save()
            obj.Patient =Patient.objects.get(id=request.session["Patient_id"])
@@ -84,13 +84,20 @@ def apply_scan_delete(request, pk):
 # CounsellingBook
 def counselling_book_list_create(request):
     if request.method == 'POST':
-        form = CounsellingBookForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('counselling_book_list_create')
+        booking_date = request.POST.get("booking_date")
+        time_slot = request.POST.get("time_slot")
+        patid = request.session["Patient_id"]
+        pid = Patient.objects.get(id=patid)
+
+        obj = CounsellingBook.objects.create(
+            patientId=pid,
+            Booking_date=booking_date,
+            Times_lot=time_slot,
+        )
+        return redirect('counselling_book_list_create')
     else:
         form = CounsellingBookForm()
-    counselling_books = CounsellingBook.objects.all()
+    counselling_books = CounsellingBook.objects.filter(patientId=request.session["Patient_id"])
     return render(request, 'counselling_book_list_create.html', {'form': form, 'counselling_books': counselling_books})
 
 def counselling_book_edit(request, pk):
@@ -194,7 +201,7 @@ def scan_type_view(request,scnid):
         for item in ScanType.objects.filter(id__in=selected_ids):
             final_price = item.Amount - item.Discount
             selected_items.append({
-                "name": item.Scantype,
+                "name": item.Scan_Type,
                 "amount": item.Amount,
                 "discount": item.Discount,
                 "final": final_price
@@ -210,9 +217,82 @@ def scan_type_view(request,scnid):
     return render(request, 'scan_type_View.html', context)
 
 # def scanning_booking(request):
-#     patid=request.session["Patient_id"]
-#     if request.method == 'POST':
-#         try:
-#             Scan_Type=
+#     if request.method == "POST":
+#         patid = request.session.get("Patient_id")
+#         scan_ids = request.POST.getlist("scans")
+#         date = request.POST.get("bkdate")
+#         slot = request.POST.get("Slot")
+#         center_id = request.POST.get("ctr")
 #
-#         return redirect()
+#
+#         for scan_id in scan_ids:
+#             ApplyScan.objects.create(
+#                 Patient_id=patid,
+#                 ScanType_id=scan_id,
+#                 ScanCenter_id=center_id,
+#                 BookingDate=date,
+#                 TimeSlot=slot,
+#             )
+#         return redirect('homee')  # Or any success page
+
+
+from django.http import HttpResponse
+from .models import ApplyScan, Patient
+
+def getAppointment(request):
+    context = {}
+    if request.method == "POST":
+        booking_date = request.POST.get("bkdate")
+        print(booking_date)
+        time_slot = request.POST.get("Slot")
+        print(time_slot)
+        patid = request.session["Patient_id"]
+        pid = Patient.objects.get(id=patid)
+        print(patid)
+        scan_ids = request.POST.getlist("scans")
+        print(scan_ids)
+        center_id = request.POST.get("ctr")
+        print(center_id)
+        amount = request.POST.get("amount")
+        print(amount)
+
+        # Count for time slot limit
+        existing_slot_count = ApplyScan.objects.filter(
+            Booking_Date=booking_date,
+            Preferred_time=time_slot
+        ).count()
+
+        if existing_slot_count >= 5:
+            return HttpResponse(
+                "<script>alert('This time slot is full. Please choose another time slot and date.');window.location='/customer/getAppointment/';</script>"
+            )
+
+        # Count how many appointments already exist for that date
+        daily_count = ApplyScan.objects.filter(Booking_Date=booking_date).count()
+
+        # Create appointment object without many-to-many assignment
+        obj = ApplyScan.objects.create(
+            patient=pid,
+            Scan_Center=center_id,
+            Booking_Date=booking_date,
+            Preferred_time=time_slot,
+            Amount= amount,
+        )
+
+        # Properly set many-to-many relationship
+        obj.Scan_Type.set(scan_ids)
+
+        # Assign token number and save
+        obj.Coupon = daily_count + 1  # Token starts from 1 daily
+        obj.save()
+
+        return HttpResponse(
+            f"<script>alert('Successfully booked your appointment! Your token number is {obj.Coupon}');window.location='/customer/appointmenttocken/{obj.id}/';</script>"
+        )
+
+    # return render(request, 'Appointment.html', context)
+
+def appointmenttocken(request, appid):
+    context = {}
+    context['appointment'] = ApplyScan.objects.filter(id=appid)
+    return render(request, 'AppointmentInfo.html', context)

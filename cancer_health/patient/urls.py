@@ -8,7 +8,8 @@ urlpatterns = [
 
     #search Scan center
     path('search_scan_center/', views.search_scan_center, name='search_scan_center'),
-
+    # path('scanning_booking/', views.scanning_booking, name='scanning_booking'),
+    path('getAppointment/', views.getAppointment, name='getAppointment'),
 
 
     # Scanlist view

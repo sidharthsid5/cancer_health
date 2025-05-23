@@ -5,7 +5,7 @@ from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthR
 class PatHealthRecForm(forms.ModelForm):
     class Meta:
         model = PatHealthRec
-        fields = 'Records_Detected','Previous_hospital','Treat_file'
+        fields = 'Records_Details','Previous_hospital','Treat_file'
 
 class ApplyScanForm(forms.ModelForm):
     class Meta:
@@ -15,14 +15,14 @@ class ApplyScanForm(forms.ModelForm):
 class CounsellingBookForm(forms.ModelForm):
     class Meta:
         model = CounsellingBook
-        fields = '__all__'
+        fields = 'Booking_date','Times_lot'
 
 class RegFreevigForm(forms.ModelForm):
     class Meta:
         model = RegFreevig
-        fields = '__all__'
+        fields = ()
 
 class CommentsForm(forms.ModelForm):
     class Meta:
         model = Comments
-        fields = '__all__'
+        fields = ('comments',)
