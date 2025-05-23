@@ -156,7 +156,6 @@
     <tr>
       <th>Comment ID</th>
       <th>Comment</th>
-      <th>Patient</th>
       <th>Date</th>
       <th>Actions</th>
     </tr>
@@ -166,7 +165,7 @@
     <tr>
       <td>{{ comment.id }}</td>
       <td>{{ comment.comments }}</td>
-      <td>{{ comment.Patient }}</td>
+
       <td>{{ comment.Date }}</td>
       <td>
         <a href="{% url 'comments_edit' comment.pk %}" class="btn btn-edit">Edit</a>

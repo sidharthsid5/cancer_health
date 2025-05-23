@@ -151,14 +151,21 @@ def reg_freevig_delete(request, pk):
 # Comments
 def comments_list_create(request):
     if request.method == 'POST':
+        patid = request.session["Patient_id"]
+        pid = Patient.objects.get(id=patid)
         form = CommentsForm(request.POST)
+
         if form.is_valid():
-            form.save()
+            obj = form.save(commit=False)
+            obj.Patient = pid
+            obj.save()
             return redirect('comments_list_create')
     else:
         form = CommentsForm()
+
     comments = Comments.objects.all()
     return render(request, 'comments_list_create.html', {'form': form, 'comments': comments})
+
 
 def comments_edit(request, pk):
     comment = get_object_or_404(Comments, pk=pk)
