@@ -75,10 +75,10 @@ class Comments(models.Model):
     # Apply Scan
 class ApplyScan(models.Model):
     Scan_Type = models.ManyToManyField(ScanType)
-    Scan_Center = models.CharField(max_length=30, null=True)
+    Scan_Center = models.ForeignKey(ScanCenter, on_delete=models.CASCADE,null=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True)
     Booking_Date = models.DateField(null=True)
-    Preferred_time = models.CharField(max_length=4, null=True)
+    Preferred_time = models.CharField(max_length=20, null=True)
     Status = models.CharField(default='New', max_length=20)
     Amount = models.IntegerField(null=True)
     Coupon = models.CharField(max_length=6, null=True)

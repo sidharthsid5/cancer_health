@@ -1,16 +1,17 @@
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     #Home
     path('', views.homee, name='homee'),
 
+    # Guidelines
+    path('guidelines_patient_view/', views.guidelines_patient_view, name='guidelines_patient_view'),
 
     #search Scan center
     path('search_scan_center/', views.search_scan_center, name='search_scan_center'),
-    # path('scanning_booking/', views.scanning_booking, name='scanning_booking'),
     path('getAppointment/', views.getAppointment, name='getAppointment'),
-
 
     # Scanlist view
     path('scan_type_view/<scnid>/', views.scan_type_view, name='scan_type_view'),

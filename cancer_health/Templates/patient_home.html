@@ -1,57 +1,27 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
 <head>
 <title>Trealop</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
+  <style>
+
+  .wrapper.bgded {
+    min-height: 500px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+</style>
 </head>
 <body id="top">
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear">
-    <div class="fl_left">
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><i class="fas fa-phone rgtspace-5"></i> +00 (123) 456 7890</li>
-        <li><i class="far fa-envelope rgtspace-5"></i> info@domain.com</li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-    <div class="fl_right">
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><a href="index.html"><i class="fas fa-home"></i></a></li>
-        <li><a href="#" title="Help Centre"><i class="far fa-life-ring"></i></a></li>
-        <li><a href="#" title="Login"><i class="fas fa-sign-in-alt"></i></a></li>
-        <li><a href="#" title="Sign Up"><i class="fas fa-edit"></i></a></li>
-        <li id="searchform">
-          <div>
-            <form action="#" method="post">
-              <fieldset>
-                <legend>Quick Search:</legend>
-                <input type="text" placeholder="Enter search term&hellip;">
-                <button type="submit"><i class="fas fa-search"></i></button>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row1">
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left">
-      <!-- ################################################################################################ -->
+
       <h1><a href="{% url 'homee' %}">PATIENT-HOME</a></h1>
       <!-- ################################################################################################ -->
     </div>
@@ -62,56 +32,27 @@
         <li><a class="drop" href="#">Services</a>
           <ul>
             <li><a href="{% url 'pat_health_rec_list_create' %}">Submit Health Record</a></li>
-            <li><a href="{% url 'search_scan_center' %}">Search Scan Center</a></li>
-            <li><a href="{% url 'apply_scan_list_create' %}">Apply for scan</a></li>
+            <li><a href="{% url 'search_scan_center' %}">Apply for scan</a></li>
             <li><a href="{% url 'counselling_book_list_create' %}">Book Counselling</a></li>
-            <li><a href="{% url 'reg_freevig_list_create' %}">Apply forf free vig</a></li>
+            <li><a href="{% url 'reg_freevig_list_create' %}">Apply for free vig</a></li>
             <li><a href="{% url 'comments_list_create' %}">Sent Comments</a></li>
 
           </ul>
         </li>
-        <li><a class="drop" href="#">Guidlines</a>
-          <ul>
-            <li><a href="{% url 'guide_lines_list_create' %}">Guidlines</a></li>
-          </ul>
+        <li><a href="{% url 'guidelines_patient_view' %}">Guidlines</a>
+
         </li>
-        <li><a href="#">Log Out</a></li>
+        <li><a href="{% url 'login1' %}">Log Out</a></li>
       </ul>
-      <!-- ################################################################################################ -->
     </nav>
   </header>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay gradient" style="background-image:url('images/demo/backgrounds/01.png');">
+<div class="wrapper bgded" style="background-image: url('{% static 'images/demo/patient_home.png' %}');">
+
+
   <div id="pageintro" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <article>
-      <p>Eu leo curabitur eleifend sapien</p>
-      <h3 class="heading">Sed eros nullam quis ligula</h3>
-      <p>Elementum lectus varius aliquet quisque fringilla est in porttitor</p>
-      <footer>
-        <ul class="nospace inline pushright">
-          <li><a class="btn" href="#">Ultricies dui orci</a></li>
-          <li><a class="btn inverse" href="#">Mollis libero quis</a></li>
-        </ul>
-      </footer>
-    </article>
-    <!-- ################################################################################################ -->
-  </div>
+    </div>
 </div>
-
-<div class="wrapper row3">
-  <section id="cta" class="hoc container clear">
-    {% block content %}
-
-    {% endblock %}
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear">
     <!-- ################################################################################################ -->

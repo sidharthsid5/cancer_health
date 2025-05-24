@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="">
-<!-- To declare your language - read more here: https://www.w3.org/International/questions/qa-html-language-declarations -->
+
 <head>
 <title>Trealoop</title>
 <meta charset="utf-8">
@@ -9,54 +9,12 @@
 <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row0">
-  <div id="topbar" class="hoc clear">
-    <div class="fl_left"> 
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><i class="fas fa-phone rgtspace-5"></i> +00 (123) 456 7890</li>
-        <li><i class="far fa-envelope rgtspace-5"></i> info@domain.com</li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-    <div class="fl_right"> 
-      <!-- ################################################################################################ -->
-      <ul class="nospace">
-        <li><a href="index.html"><i class="fas fa-home"></i></a></li>
-        <li><a href="#" title="Help Centre"><i class="far fa-life-ring"></i></a></li>
-        <li><a href="#" title="Login"><i class="fas fa-sign-in-alt"></i></a></li>
-        <li><a href="#" title="Sign Up"><i class="fas fa-edit"></i></a></li>
-        <li id="searchform">
-          <div>
-            <form action="#" method="post">
-              <fieldset>
-                <legend>Quick Search:</legend>
-                <input type="text" placeholder="Enter search term&hellip;">
-                <button type="submit"><i class="fas fa-search"></i></button>
-              </fieldset>
-            </form>
-          </div>
-        </li>
-      </ul>
-      <!-- ################################################################################################ -->
-    </div>
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row1">
   <header id="header" class="hoc clear">
-    <div id="logo" class="fl_left"> 
-      <!-- ################################################################################################ -->
-
-      <!-- ################################################################################################ -->
+    <div id="logo" class="fl_left">
     </div>
-    <nav id="mainav" class="fl_right"> 
-      <!-- ################################################################################################ -->
+    <nav id="mainav" class="fl_right">
       <ul class="clear">
         <li class="active"><a href="{% url 'homes' %}">Home</a></li>
         <li><a class="drop" href="#">Pages</a>
@@ -76,12 +34,12 @@
             <li><a href="{% url 'med_services_list_create' %}">Medical Services</a></li>
             <li><a href="{% url 'hair_don_criteria_list_create' %}">Hair Donation</a></li>
             <li><a href="{% url 'dietary_tip_list_create' %}">Dietary Tips</a></li>
-            <li><a href="{% url 'dietary_supply_list_create' %}">Dietary Suppliments</a></li>
+            <li><a href="{% url 'dietary_supply_list_create' %}">Dietary Supplements</a></li>
           </ul>
         </li>
         <li><a href="{% url 'login1' %}">Log Out</a></li>
       </ul>
-      <!-- ################################################################################################ -->
+
     </nav>
   </header>
 </div>
@@ -93,12 +51,8 @@
     {% endblock %}
   </section>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <div class="wrapper row4">
-  <footer id="footer" class="hoc clear"> 
-    <!-- ################################################################################################ -->
+  <footer id="footer" class="hoc clear">
     <div class="one_quarter first">
       <h6 class="heading">A convallis ultricies</h6>
       <p>Luctus et dolor nulla facilisi fusce sit amet magna non odio molestie egestas nullam id odio.</p>
@@ -150,23 +104,19 @@
         </fieldset>
       </form>
     </div>
-    <!-- ################################################################################################ -->
+
   </footer>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
-    <!-- ################################################################################################ -->
+
     <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
     <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
-    <!-- ################################################################################################ -->
+
   </div>
 </div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
+
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script src="{% static 'layout/scripts/jquery.min.js' %}"></script>

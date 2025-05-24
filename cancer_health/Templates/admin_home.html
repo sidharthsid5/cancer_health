@@ -7,19 +7,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 <style>
-  /* Optional: Add this to your layout.css for better practice */
-  /* If you want to control the height of the image container */
+
   .wrapper.bgded {
-    min-height: 500px; /* Adjust this value as needed for your image's height */
-    background-size: cover; /* Ensures the background image covers the entire element */
-    background-position: center center; /* Centers the background image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
+    min-height: 500px;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 </style>
 </head>
 <body id="top">
-<div class="wrapper row0">
-
 <div class="wrapper row1">
   <header id="header" class="hoc clear">
     <div id="logo" class="fl_left">
@@ -48,7 +45,7 @@
             <li><a href="{% url 'dietary_supply_list_create' %}">Dietary Suppliments</a></li>
           </ul>
         </li>
-        <li><a href="#">Log Out</a></li>
+        <li><a href="{% url 'login1' %}">Log Out</a></li>
       </ul>
       </nav>
   </header>
@@ -58,13 +55,6 @@
     </div>
 </div>
 
-<!--<div class="wrapper row3">-->
-<!--  <section id="cta" class="hoc container clear">-->
-<!--    {% block content %}-->
-
-<!--    {% endblock %}-->
-<!--  </section>-->
-<!--</div>-->
 <div class="wrapper row4">
   <footer id="footer" class="hoc clear">
     <div class="one_quarter first">

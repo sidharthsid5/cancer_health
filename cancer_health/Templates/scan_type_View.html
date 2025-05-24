@@ -1,4 +1,5 @@
 {% extends 'patient_header.html' %}
+
 {% block content %}
 <style>
   /* General Body and Container Adjustments */
@@ -243,7 +244,7 @@
                         <p>Discount: ₹{{ x.Discount }}</p>
                         <p><strong>Price: ₹{{ x.Amount }}</strong></p>
                         <footer>
-                            <input type="checkbox" name="scans" value="{{ x.id }}" id="scan-{{ x.id }}">
+                          <input type="checkbox" name="scans" value="{{ x.id }}" id="scan-{{ x.id }}">
                             <label for="scan-{{ x.id }}">Select</label>
                         </footer>
                     </article>
@@ -267,6 +268,7 @@
                         <th>Price (₹)</th>
                         <th>Discount (₹)</th>
                         <th>Final (₹)</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -276,6 +278,9 @@
                         <td>{{ item.amount }}</td>
                         <td>{{ item.discount }}</td>
                         <td>{{ item.final }}</td>
+                       {% for scan_id in item.selected_ids %}
+                        <input type="hidden" name="scans" value="{{ scan_id }}">
+                         {% endfor %}
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -286,6 +291,9 @@
                     </tr>
                 </tfoot>
             </table>
+          {% for id in selected_items.0.selected_ids %}
+          <input type="hidden" name="scans" value="{{ id }}">
+          {% endfor %}
 
             <input type="hidden" name="ctr" id="cntreid" value="{{ scanningcnre }}">
             <input type="hidden" name="amount" id="amount" value="{{ total }}">
@@ -299,11 +307,11 @@
                 <label for="slot">Choose Time Slot:</label>
                 <select name="Slot" id="slot" required>
                     <option value="" disabled selected>-- Select --</option>
-                    <option value="1">10AM to 11AM</option>
-                    <option value="2">11AM to 12PM</option>
-                    <option value="3">1PM to 2PM</option>
-                    <option value="4">2PM to 3PM</option>
-                    <option value="5">3PM to 4PM</option>
+                    <option value="10AM to 11AM">10AM to 11AM</option>
+                    <option value="11AM to 12PM">11AM to 12PM</option>
+                    <option value="1PM to 2PM">1PM to 2PM</option>
+                    <option value="2PM to 3PM">2PM to 3PM</option>
+                    <option value="3PM to 4PM">3PM to 4PM</option>
                 </select>
             </div>
 
@@ -312,4 +320,6 @@
         {% endif %}
     </section>
 </div>
+
 {% endblock %}
+

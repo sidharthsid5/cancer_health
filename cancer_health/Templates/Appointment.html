@@ -1,0 +1,260 @@
+{% extends 'patient_header.html' %}
+{% block content %}
+
+<style>
+
+  h1 {
+    text-align: center;
+    color: #8e44ad;
+    margin: 30px 0 10px;
+    font-weight: bold;
+    font-size: 2.6em;
+    text-decoration: underline;
+    padding-bottom: 30px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #9b59b6;
+    margin: 10px 0 20px;
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+
+ /* Updated Appointment Card Styling */
+.appointment-card {
+  max-width: 600px;
+  margin: 0 auto 60px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  padding: 30px 35px;
+  border: 1px solid #e0e0e0;
+
+  background: linear-gradient(135deg, #a272d1 0%, #6c5ce7 100%);
+  color: black;
+}
+
+.appointment-card h3 {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+  font-size: 1.6em;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.appointment-card h3::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+
+  .appointment-table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden;
+  }
+
+  .appointment-table th,
+  .appointment-table td {
+    padding: 15px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: black;
+  }
+
+  .appointment-table tr:last-child th,
+  .appointment-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .appointment-table th {
+    background-color: transparent;
+    width: 40%;
+    font-weight: 600;
+  }
+
+  .appointment-table td {
+    background-color: transparent;
+  }
+
+
+  .appointment-table tr:first-child th {
+    border-top-left-radius: 8px;
+  }
+
+  .appointment-table tr:first-child td {
+    border-top-right-radius: 8px;
+  }
+
+  .appointment-table tr:last-child th {
+    border-bottom-left-radius: 8px;
+  }
+
+  .appointment-table tr:last-child td {
+    border-bottom-right-radius: 8px;
+  }
+
+  .appointment-table ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style: disc;
+    color: white;
+  }
+
+  .appointment-table li {
+    margin-bottom: 3px;
+  }
+
+  .past-appointments {
+    max-width: 90%;
+    margin: 0 auto 50px;
+  }
+
+  .past-appointments table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff; /* White background for the table */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures child elements respect border-radius */
+    border: 1px solid #e0e0e0; /* Subtle border for definition */
+  }
+
+  .past-appointments th,
+  .past-appointments td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee; /* Light line between rows */
+    text-align: left;
+  }
+
+  .past-appointments th {
+    background-color: #9b59b6;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .past-appointments tr:nth-child(even) {
+    background-color: #f9f5ff; /* Slightly different shade for even rows */
+  }
+
+  .past-appointments td ul {
+    margin: 0;
+    padding-left: 20px;
+    list-style: disc;
+    color: #555;
+  }
+
+  .past-appointments td:last-child {
+    text-align: left; /* Ensure last column content is left-aligned */
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #777;
+  }
+
+  /* Specific color for important values on the gradient card */
+  .appointment-table .token-value {
+      color:  #FF0000;
+      font-weight: bold;
+  }
+
+  .appointment-table .amount-value {
+      color: #00FF00;
+      font-weight: bold;
+  }
+</style>
+
+<h1>Appointment Confirmed</h1>
+
+<h2>Your scan appointment has been successfully booked.</h2>
+
+<div class="appointment-card">
+  <h3>Current Appointment Details</h3>
+  <table class="appointment-table">
+    <tr>
+      <th>Date</th>
+      <td>{{ appointment.Booking_Date }}</td>
+    </tr>
+    <tr>
+      <th>Time Slot</th>
+      <td>{{ appointment.Preferred_time }}</td>
+    </tr>
+    <tr>
+      <th>Token</th>
+      <td class="token-value">{{ appointment.Coupon }}</td>
+    </tr>
+    <tr>
+      <th>Center ID</th>
+      <td>{{ appointment.Scan_Center }}</td>
+    </tr>
+    <tr>
+      <th>Amount</th>
+      <td class="amount-value">₹{{ appointment.Amount }}</td>
+    </tr>
+    <tr>
+      <th>Scans</th>
+      <td>
+
+          {% for scan in appointment.Scan_Type.all %}
+           <p style="color: black;">{{ scan.Scan_Type }}</p>
+          {% endfor %}
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+<h2>Past Appointments</h2>
+<div class="past-appointments">
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Token</th>
+        <th>Center</th>
+        <th>Amount</th>
+        <th>Scans</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for past in past_appointments %}
+      <tr>
+        <td>{{ past.Booking_Date }}</td>
+        <td>{{ past.Preferred_time }}</td>
+        <td>{{ past.Coupon }}</td>
+        <td>{{ past.Scan_Center }}</td>
+        <td>₹{{ past.Amount }}</td>
+        <td>
+
+            {% for scan in past.Scan_Type.all %}
+             <p style="color: black;">{{ scan.Scan_Type }}</p>
+            {% endfor %}
+
+        </td>
+      </tr>
+      {% endfor %}
+      {% if not past_appointments %}
+      <tr>
+        <td colspan="6" class="no-data">No past appointments found.</td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock %}
