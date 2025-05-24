@@ -12,14 +12,9 @@ from administrator.models import GuideLines
 
 
 def homee(request):
-    # return HttpResponse("hai<br>"
-    #                     "<a href='pat_health_rec_list_create'>Click me</a><br>"
-    #                     "<a href='apply_scan_list_create'>Click me</a><br>"
-    #                     "<a href='counselling_book_list_create'>Click me</a><br>"
-    #                     "<a href='reg_freevig_list_create'>Click me</a><br>"
-    #                     "<a href='comments_list_create'>Click me</a><br>"
-    #                     )
     return render(request, 'patient_home.html')
+
+
 # PatHealthRec
 def pat_health_rec_list_create(request):
     if request.method == 'POST':
@@ -52,6 +47,7 @@ def pat_health_rec_delete(request, pk):
         return redirect('pat_health_rec_list_create')
     return render(request, 'pat_health_rec_delete.html', {'pat_health_rec': pat_health_rec})
 
+
 # ApplyScan
 def apply_scan_list_create(request):
     if request.method == 'POST':
@@ -82,6 +78,7 @@ def apply_scan_delete(request, pk):
         return redirect('apply_scan_list_create')
     return render(request, 'apply_scan_delete.html', {'apply_scan': apply_scan})
 
+
 # CounsellingBook
 def counselling_book_list_create(request):
     if request.method == 'POST':
@@ -90,6 +87,21 @@ def counselling_book_list_create(request):
         patid = request.session["Patient_id"]
         pid = Patient.objects.get(id=patid)
 
+        # Check if the selected slot is already full
+        existing_slot_count = CounsellingBook.objects.filter(
+            Booking_date=booking_date,
+            Times_lot=time_slot
+        ).count()
+
+        if existing_slot_count >= 5:
+            return HttpResponse(
+                "<script>"
+                "alert('This time slot is full. Please choose another time slot and date.');"
+                "window.history.back();"
+                "</script>"
+            )
+
+        # Create the booking
         obj = CounsellingBook.objects.create(
             patientId=pid,
             Booking_date=booking_date,
@@ -98,8 +110,12 @@ def counselling_book_list_create(request):
         return redirect('counselling_book_list_create')
     else:
         form = CounsellingBookForm()
+
     counselling_books = CounsellingBook.objects.filter(patientId=request.session["Patient_id"])
-    return render(request, 'counselling_book_list_create.html', {'form': form, 'counselling_books': counselling_books})
+    return render(request, 'counselling_book_list_create.html', {
+        'form': form,
+        'counselling_books': counselling_books
+    })
 
 def counselling_book_edit(request, pk):
     counselling_book = get_object_or_404(CounsellingBook, pk=pk)
@@ -118,6 +134,7 @@ def counselling_book_delete(request, pk):
         counselling_book.delete()
         return redirect('counselling_book_list_create')
     return render(request, 'counselling_book_delete.html', {'counselling_book': counselling_book})
+
 
 # RegFreevig
 def reg_freevig_list_create(request):
@@ -148,6 +165,7 @@ def reg_freevig_delete(request, pk):
         reg_freevig.delete()
         return redirect('reg_freevig_list_create')
     return render(request, 'reg_freevig_delete.html', {'reg_freevig': reg_freevig})
+
 
 # Comments
 def comments_list_create(request):
@@ -282,7 +300,7 @@ def getAppointment(request):
         return render(request, 'Appointment.html', context)
 
 
-
+#View Guidelines
 def guidelines_patient_view(request):
     context={}
     context['dataset']= GuideLines.objects.all()

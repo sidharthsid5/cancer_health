@@ -10,22 +10,13 @@ from .forms import (
     HairDonCriteriaForm, MedServicesForm, GuideLinesForm, DietaryTipForm,
     DietarySupplyForm, EventsForm, StateForm, DistForm
 )
+from patient.models import PatHealthRec,ApplyScan
+
+
 def homes(request):
-    # return HttpResponse("hai<br>"
-    #                     "<a href='cancer_type_list_create'>Click me</a><br>"
-    #                     "<a href='state_list_create'>Click me</a><br>"
-    #                     "<a href='dist_list_create'>Click me</a><br>"
-    #                     "<a href='scan_type_list_create'>Click me</a><br>"
-    #                     "<a href='scan_center_list_create'>Click me</a><br>"
-    #                     "<a href='coun_center_list_create'>Click me</a><br>"
-    #                     "<a href='hair_don_criteria_list_create'>Click me</a><br>"
-    #                     "<a href='med_services_list_create'>Click me</a><br>"
-    #                     "<a href='guide_lines_list_create'>Click me</a><br>"
-    #                     "<a href='dietary_tip_list_create'>Click me</a><br>"
-    #                     "<a href='dietary_supply_list_create'>Click me</a><br>"
-    #                     "<a href='events_list_create'>Click me</a><br>"
-    #                     )
     return render(request,'admin_home.html')
+
+
 # CancerType
 def cancer_type_list_create(request):
     if request.method == 'POST':
@@ -385,3 +376,15 @@ def events_delete(request, pk):
         event.delete()
         return redirect('events_list_create')
     return render(request, 'events_delete.html', {'event': event})
+
+
+# View Patient Health Records
+def admin_health_records(request):
+    pat_health_recs = PatHealthRec.objects.all()
+    return render(request, 'view_health_records.html', {'pat_health_recs': pat_health_recs})
+
+#View Scan Appointments
+def admin_view_appointments(request):
+    all_appointments = ApplyScan.objects.select_related('patient', 'Scan_Center').prefetch_related('Scan_Type').order_by('-Booking_Date')
+    context = {'appointments': all_appointments}
+    return render(request, 'view_appointments.html', context)

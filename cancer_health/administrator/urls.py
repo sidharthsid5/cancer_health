@@ -2,7 +2,17 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+
+
+    # View appointments
+    path('admin_view_appointments/', views.admin_view_appointments, name='admin_view_appointments'),
+
+    # View Health Records
+    path('admin_health_records/', views.admin_health_records, name='admin_health_records'),
+
+    # Home
     path('', views.homes, name='homes'),
+
     # CancerType URLs
     path('cancer_type_list_create/', views.cancer_type_list_create, name='cancer_type_list_create'),
     path('cancer_type_list_create<int:pk>/', views.cancer_type_edit, name='cancer_type_edit'),

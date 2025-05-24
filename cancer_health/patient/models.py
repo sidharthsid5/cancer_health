@@ -5,7 +5,7 @@ from django.db import models
 from administrator.models import ScanType, ScanCenter
 from login.models import Patient
 
-
+# Patient Health Records
 class PatHealthRec(models.Model):
     Recorded = models.AutoField(primary_key=True)
     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
@@ -15,25 +15,6 @@ class PatHealthRec(models.Model):
 
     def __str__(self):
         return f"Record {self.Recorded} for {self.Patient}"
-
-
-
-# # Apply_Scan
-# class ApplyScan(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     Scan_Type = models.ForeignKey(ScanType, on_delete=models.CASCADE,null=True)
-#     scan_center = models.ForeignKey(ScanCenter, on_delete=models.CASCADE,null=True)
-#     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
-#     apply_date = models.DateField()
-#     booking_date = models.DateField()
-#     Preferred_time = models.CharField(max_length=8,null=True)
-#     Status = models.CharField(max_length=10,null=True)
-#     Apply_location = models.CharField(max_length=20,null=True)
-#     coupon_number = models.IntegerField()
-#
-#     def __str__(self):
-#         return f"Scan {self.id} for {self.Patient}"
-
 
 
 # Book_Counseling
@@ -56,6 +37,7 @@ class RegFreevig(models.Model):
     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
     Registration_date = models.DateField(default=django.utils.timezone.now)
     Status = models.CharField(default= 'Pending',max_length=10,null=True)
+    Coupon = models.CharField(max_length=6, null=True)
 
     def __str__(self):
         return f"Free Vig registration {self.Registration_id} for {self.Patient}"
