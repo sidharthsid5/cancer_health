@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
 
+    # View Counselling booking
+    path('admin_counselling_appointments/', views.admin_counselling_appointments, name='admin_counselling_appointments'),
 
     # View appointments
     path('admin_view_appointments/', views.admin_view_appointments, name='admin_view_appointments'),

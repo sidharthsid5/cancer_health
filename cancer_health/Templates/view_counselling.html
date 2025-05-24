@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% extends 'adminheader.html' %}
+<html>
+<head>
+    <title>Counselling Bookings</title>
+</head>
+{% block content %}
+
+<style>
+  /* General body styling for consistency */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa; /* Light background for the page */
+    color: #333;
+    line-height: 1.6;
+  }
+
+  /* Main page title */
+  h1 {
+    text-align: center;
+    color: #0063CC; /* Consistent blue from previous examples */
+    margin: 20px 0 10px;
+    font-weight: bold;
+    font-size: 2.8em;
+    text-decoration: underline;
+    padding-bottom: 50px;
+  }
+
+  /* Subtitle for sections (like "Counselling Bookings") */
+  h2 {
+    text-align: center;
+    color: #007BFF; /* Consistent blue from previous examples */
+    margin: 20px 0 20px; /* Adjusted margin for better spacing */
+    font-weight: bold;
+    font-size: 1.8em;
+  }
+
+  /* Table styling */
+  table {
+    margin: 0 auto 40px; /* Center table and provide bottom margin */
+    width: 90%; /* Adjust table width as needed */
+    border-collapse: collapse; /* Collapse borders between cells */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+    background-color: #ffffff; /* White background for the table */
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures rounded corners apply to content */
+  }
+
+  th, td {
+    padding: 12px 20px; /* Padding inside cells */
+    border-bottom: 1px solid #ccc; /* Light gray border between rows */
+    text-align: left; /* Align text to the left */
+  }
+
+  th {
+    background-color: #007BFF; /* Consistent blue for table headers */
+    color: white; /* White text for table headers */
+    text-transform: uppercase; /* Uppercase text for consistency */
+    text-align: center; /* Center text in headers */
+  }
+
+  tr:last-child td {
+    border-bottom: none; /* No bottom border for the last row */
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+  }
+
+  /* Specific styling for the last column in the table, if needed */
+  td:last-child {
+    text-align: center; /* Example: center align the last column if it contains actions/buttons */
+  }
+</style>
+
+<h2>Counselling Bookings</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Booking ID</th>
+      <th>Token Number</th>
+      <th>Booking Date</th>
+      <th>Booking Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for counselling_book in appointments %}
+    <tr>
+      <td>{{ counselling_book.id }}</td>
+      <td>{{ counselling_book.Coupon}}</td>
+      <td>{{ counselling_book.Booking_date }}</td>
+      <td>{{ counselling_book.Times_lot }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
+</html>

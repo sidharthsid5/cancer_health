@@ -145,11 +145,11 @@
       <label for="time_slot">Time Slot:</label>
       <select id="time_slot" name="time_slot" required>
         <option value="" disabled selected>-- Select --</option>
-        <option value="1">10AM to 11AM</option>
-        <option value="2">11AM to 12PM</option>
-        <option value="3">1PM to 2PM</option>
-        <option value="4">2PM to 3PM</option>
-        <option value="5">3PM to 4PM</option>
+        <option value="10AM to 11AM">10AM to 11AM</option>
+        <option value="11AM to 12PM">11AM to 12PM</option>
+        <option value="1PM to 2PM">1PM to 2PM</option>
+        <option value="2PM to 3PM">2PM to 3PM</option>
+        <option value="3PM to 4PM">3PM to 4PM</option>
       </select>
     </p>
 
@@ -164,8 +164,9 @@
   <thead>
     <tr>
       <th>Booking ID</th>
+      <th>Token Number</th>
       <th>Booking Date</th>
-      <th>Status</th>
+      <th>Booking Time</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -173,10 +174,10 @@
     {% for counselling_book in counselling_books %}
     <tr>
       <td>{{ counselling_book.id }}</td>
+      <td>{{ counselling_book.Coupon}}</td>
       <td>{{ counselling_book.Booking_date }}</td>
-      <td>{{ counselling_book.Status }}</td>
+      <td>{{ counselling_book.Times_lot }}</td>
       <td>
-        <a href="{% url 'counselling_book_edit' counselling_book.pk %}" class="btn btn-edit">Edit</a>
         <a href="{% url 'counselling_book_delete' counselling_book.pk %}" class="btn btn-delete">Delete</a>
       </td>
     </tr>

@@ -87,7 +87,7 @@ def counselling_book_list_create(request):
         patid = request.session["Patient_id"]
         pid = Patient.objects.get(id=patid)
 
-        # Check if the selected slot is already full
+
         existing_slot_count = CounsellingBook.objects.filter(
             Booking_date=booking_date,
             Times_lot=time_slot
@@ -101,12 +101,14 @@ def counselling_book_list_create(request):
                 "</script>"
             )
 
-        # Create the booking
+        daily_count = CounsellingBook.objects.filter(Booking_date=booking_date).count()
         obj = CounsellingBook.objects.create(
             patientId=pid,
             Booking_date=booking_date,
             Times_lot=time_slot,
+            Coupon=daily_count + 1
         )
+
         return redirect('counselling_book_list_create')
     else:
         form = CounsellingBookForm()
@@ -116,6 +118,7 @@ def counselling_book_list_create(request):
         'form': form,
         'counselling_books': counselling_books
     })
+
 
 def counselling_book_edit(request, pk):
     counselling_book = get_object_or_404(CounsellingBook, pk=pk)

@@ -10,7 +10,7 @@ from .forms import (
     HairDonCriteriaForm, MedServicesForm, GuideLinesForm, DietaryTipForm,
     DietarySupplyForm, EventsForm, StateForm, DistForm
 )
-from patient.models import PatHealthRec,ApplyScan
+from patient.models import PatHealthRec,ApplyScan, CounsellingBook
 
 
 def homes(request):
@@ -388,3 +388,8 @@ def admin_view_appointments(request):
     all_appointments = ApplyScan.objects.select_related('patient', 'Scan_Center').prefetch_related('Scan_Type').order_by('-Booking_Date')
     context = {'appointments': all_appointments}
     return render(request, 'view_appointments.html', context)
+
+# View Counselling booking
+def admin_counselling_appointments(request):
+    counselling_appointments = CounsellingBook.objects.select_related('patientId').all().order_by('-Booking_date')
+    return render(request, 'view_counselling.html', {'appointments': counselling_appointments})

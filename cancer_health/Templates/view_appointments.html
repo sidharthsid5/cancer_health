@@ -109,16 +109,16 @@
       </tr>
     </thead>
     <tbody>
-      {% for past in past_appointments %}
+      {% for all_appointments in appointments %}
       <tr>
-        <td>{{ past.Booking_Date }}</td>
-        <td>{{ past.Preferred_time }}</td>
-        <td>{{ past.Coupon }}</td>
-        <td>{{ past.Scan_Center }}</td>
-        <td>₹{{ past.Amount }}</td>
+        <td>{{ all_appointments.Booking_Date }}</td>
+        <td>{{ all_appointments.Preferred_time }}</td>
+        <td>{{ all_appointments.Coupon }}</td>
+        <td>{{ all_appointments.Scan_Center }}</td>
+        <td>₹{{ all_appointments.Amount }}</td>
         <td>
             {# Iterating over scans and displaying each in a paragraph #}
-            {% for scan in past.Scan_Type.all %}
+           {% for scan in all_appointments.Scan_Type.all %}
              <p>{{ scan.Scan_Type }}</p>
             {% endfor %}
         </td>
@@ -126,7 +126,7 @@
       {% endfor %}
       {% if not past_appointments %}
       <tr>
-        <td colspan="6" class="no-data">No past appointments found.</td>
+        <td colspan="6" class="no-data"></td>
       </tr>
       {% endif %}
     </tbody>

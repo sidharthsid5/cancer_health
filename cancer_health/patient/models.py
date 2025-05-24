@@ -23,8 +23,9 @@ class CounsellingBook(models.Model):
     patientId = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
     Booking_date = models.DateField()
     Registration_date = models.DateField(default=django.utils.timezone.now)
-    Times_lot = models.IntegerField()
+    Times_lot = models.CharField(max_length=20, null=True)
     Status = models.CharField(default='Pending',max_length=10,null=True)
+    Coupon = models.CharField(max_length=6, null=True)
 
     def __str__(self):
         return f"Counseling {self.id} for {self.patientId}"
@@ -37,7 +38,11 @@ class RegFreevig(models.Model):
     Patient = models.ForeignKey(Patient, on_delete=models.CASCADE,null=True)
     Registration_date = models.DateField(default=django.utils.timezone.now)
     Status = models.CharField(default= 'Pending',max_length=10,null=True)
-    Coupon = models.CharField(max_length=6, null=True)
+    Full_Name = models.CharField(max_length=100,null=True)
+    Age = models.PositiveIntegerField(null=True, blank=True)
+    Gender = models.CharField(max_length=10, choices=[('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')],null=True)
+    Phone = models.CharField(max_length=15,null=True)
+    Address = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return f"Free Vig registration {self.Registration_id} for {self.Patient}"
