@@ -1,197 +1,284 @@
-<!DOCTYPE html>
 {% extends 'patient_header.html' %}
+{% load static %}
 
-<html>
-<head>
-    <title>Patient Health Records</title>
-</head>
 {% block content %}
 
 <style>
-  h1 {
-    text-align: center;
-    color: #8e44ad;
-    margin: 20px 0 10px;
-    font-weight: bold;
-    font-size: 2.8em;
-    text-decoration: underline;
+  /* Local styles for this specific page, complementing layout.css */
+
+  .container.my-5 {
+    padding-top: 50px; /* Adjust padding to give space below the fixed header */
     padding-bottom: 50px;
   }
 
-  h2 {
+  /* Page Title Styling */
+  .page-title {
+    color: #5a2a27; /* Darker brown from your logo/headings */
+    font-size: 2.8rem; /* Larger, more prominent */
+    font-weight: 700; /* Bolder */
     text-align: center;
-    color: #9b59b6;
-    margin: 10px 0 20px;
-    font-weight: bold;
-    font-size: 1.8em;
+    margin-bottom: 60px; /* More space below heading */
+    position: relative;
+    padding-bottom: 15px;
   }
 
-  .form-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
+  .page-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px; /* Underline length */
+    height: 3px; /* Underline thickness */
+    background-color: #b45a5a; /* Accent color for underline */
+    border-radius: 5px;
   }
 
-  form {
-    padding: 20px;
-    text-align: left;
-    width: 400px;
-    background-color: #f9f5ff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  /* Card Styling */
+  .card.shadow {
+    border-radius: 12px; /* More rounded corners */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important; /* Softer, more spread shadow */
+    overflow: hidden; /* Ensures rounded corners are respected by content */
   }
 
-  form p {
-    margin-bottom: 15px;
+  .card-header {
+    background-color: #5a2a27 !important; /* Dark brown for card headers */
+    color: white !important;
+    font-weight: 600;
+    padding: 15px 20px;
+    border-bottom: none; /* Remove default border */
+    text-align: center !important; /* Ensure card header text is centered */
   }
 
-  form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #6c5ce7;
+  /* Form Styling */
+  .card-body form p {
+    margin-bottom: 15px; /* Space between form fields */
   }
 
-  form input[type="text"],
-  form input[type="date"],
-  form input[type="number"],
-  form input[type="file"],
-  form textarea {
+  .card-body form p label {
+    display: block; /* Labels on their own line */
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 8px;
+  }
+
+  .card-body form input[type="text"],
+  .card-body form input[type="email"], /* Add more input types if used */
+  .card-body form input[type="file"],
+  .card-body form textarea,
+  .card-body form select { /* Added select for consistency if you use dropdowns */
     width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #dcdcdc;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    padding: 10px 15px;
+    border: 1px solid #d1d9e6; /* Consistent with login page input borders */
+    border-radius: 8px; /* Consistent border-radius */
+    box-sizing: border-box; /* Include padding in width */
+    font-size: 1rem;
+    color: #333;
   }
 
-  .btn {
-    display: inline-block;
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+  .card-body form input[type="file"] {
+    padding-top: 12px; /* Adjust for file input button alignment */
+  }
+
+  /* Button Styling */
+  .btn-primary {
+    background-color: #b45a5a; /* Accent color */
+    border-color: #b45a5a;
     color: white;
-    border-radius: 3px;
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #923f3f;
+    border-color: #923f3f;
+    transform: translateY(-2px);
+  }
+
+  .btn-success {
+    background-color: #5cb85c; /* Default green, or change to a theme-consistent green */
+    border-color: #5cb85c;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
   }
-
-  .btn-save {
-    background-color: #6772e5;
+  .btn-success:hover {
+      background-color: #4cae4c;
   }
 
-  .btn-edit {
-    background-color: #27ae60;
+  .btn-danger {
+    background-color: #d9534f; /* Default red, or change to a theme-consistent red */
+    border-color: #d9534f;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  .btn-danger:hover {
+      background-color: #c9302c;
   }
 
-  .btn-delete {
-    background-color: #e74c3c;
+<!--  /* Updated: Remove hover effect for btn-link by setting color to itself */-->
+<!--  .btn-link:hover {-->
+<!--    color: #b45a5a; /* Keep original accent color on hover */-->
+<!--    text-decoration: underline;-->
+<!--  }-->
+
+  /* Table Styling */
+  .table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse; /* Ensure borders collapse nicely */
   }
 
-  .btn:hover {
-    opacity: 0.9;
+  .table-responsive {
+    border-radius: 0 0 12px 12px; /* Only bottom corners rounded for table container */
+    overflow: hidden; /* Crucial for rounded corners on tables */
   }
 
-  table {
-    margin: 0 auto 40px;
-    width: 80%;
-    border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    background-color: #f9f5ff;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-
-  th, td {
-    padding: 12px 20px;
-    border-bottom: 1px solid #eee;
-    text-align: left;
-  }
-
-  th {
-    background-color: #9b59b6;
+  .table thead th {
+    background-color: #5a2a27; /* Dark brown for table header */
     color: white;
-    text-transform: uppercase;
     text-align: center;
+    font-weight: 600;
+    padding: 12px 15px;
+    border-bottom: 2px solid #4a1f1e; /* Darker border below header */
+    border-top: none; /* Remove top border if present */
   }
 
-  tr:last-child td {
-    border-bottom: none;
+  .table tbody td {
+    padding: 10px 15px;
+    vertical-align: middle; /* Center content vertically */
+    border-color: #eee; /* Lighter border for rows */
+    color: #444; /* Standard text color */
+    text-align: center; /* Center table cell content */
   }
 
-  tr:nth-child(even) {
-    background-color: #f3eaff;
+  .table tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9; /* Subtle stripe for readability */
   }
 
-  .record-item {
-    background-color: #f9f5ff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .table tbody tr:hover {
+    background-color: #f0f0f0; /* Light hover effect */
   }
 
-  .record-item a {
-    margin-left: 10px;
-    text-decoration: none;
-    color: #6772e5;
-    font-weight: bold;
+  .table .text-muted {
+    color: #888 !important; /* Muted text for "No File" or "No records" */
   }
 
-  .record-item a:hover {
-    text-decoration: underline;
+  /* Ensure form paragraphs don't inherit Bootstrap's default margin-bottom */
+  .form-group {
+    margin-bottom: 1rem;
   }
+
+  /* Adjust default margin for form inputs if needed */
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+
+  /* Specific adjustment for form p tags if they have unwanted spacing */
+  .card-body form p {
+      margin-bottom: 1rem; /* Adjust as needed */
+  }
+
+  /* --- NEW/UPDATED STYLES --- */
+
+  /* Center "Add New Health Record" Card */
+  .card.shadow.mb-5.mx-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+
+  }
+
 </style>
+<div class="container my-5">
 
-<h1>Patient Health Records</h1>
+  <h1 class="page-title">Patient Health Records</h1>
 
-<h2>Add New Health Record</h2>
-<div class="form-container">
-  <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-save">Save</button>
-  </form>
+  <div class="card shadow mb-5 mx-auto" style="max-width: 700px; margin-bottom: 80px !important;"> <div class="card-header text-center">
+      <h4 class="mb-0">Add New Health Record</h4>
+    </div>
+    <div class="card-body">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+          <div class="form-group mb-3">
+            <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+            {{ field }}
+            {% if field.help_text %}
+              <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% for error in field.errors %}
+              <div class="text-danger">{{ error }}</div>
+            {% endfor %}
+          </div>
+        {% endfor %}
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-primary">Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-header text-center">
+      <h4 class="mb-0">Existing Health Records</h4>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Record ID</th>
+            <th>Record Details</th>
+            <th>Previous Hospital</th>
+            <th>Treatment File</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for pat_health_rec in pat_health_recs %}
+          <tr>
+            <td>{{ pat_health_rec.Recorded }}</td>
+            <td>{{ pat_health_rec.Records_Details }}</td>
+            <td>{{ pat_health_rec.Previous_hospital }}</td>
+            <td>
+              {% if pat_health_rec.Treat_file %}
+              <a href="{{ pat_health_rec.Treat_file.url }}" download class="btn btn-link">
+                {% if pat_health_rec.Treat_file.name|length > 25 %}
+                  ...{{ pat_health_rec.Treat_file.name|slice:"-22:" }}
+                {% else %}
+                  {{ pat_health_rec.Treat_file.name|slice:"7:" }}
+                {% endif %}
+              </a>
+              {% else %}
+              <span class="text-muted">No File</span>
+              {% endif %}
+            </td>
+            <td>
+              <a href="{% url 'pat_health_rec_edit' pat_health_rec.pk %}" class="btn btn-success btn-sm me-1">Edit</a>
+              <a href="{% url 'pat_health_rec_delete' pat_health_rec.pk %}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-muted">No records found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </div>
 
-<h2>Existing Health Records</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Record ID</th>
-      <th>Records Details</th>
-      <th>Previous Hospital</th>
-      <th>Treat File</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for pat_health_rec in pat_health_recs %}
-    <tr>
-      <td>{{ pat_health_rec.Recorded }}</td>
-      <td>{{ pat_health_rec.Records_Details }}</td>
-      <td>{{ pat_health_rec.Previous_hospital }}</td>
-      <td>
-        {% if pat_health_rec.Treat_file %}
-          <a href="{{ pat_health_rec.Treat_file.url }}" download>
-            {{ pat_health_rec.Treat_file.name|slice:"7:" }}
-          </a>
-        {% else %}
-          No File
-        {% endif %}
-      </td>
-      <td>
-        <a href="{% url 'pat_health_rec_edit' pat_health_rec.pk %}" class="btn btn-edit">Edit</a>
-        <a href="{% url 'pat_health_rec_delete' pat_health_rec.pk %}" class="btn btn-delete">Delete</a>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
 {% endblock %}
-</html>
