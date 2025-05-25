@@ -90,24 +90,20 @@
   .prices li p {
     color: #555;
     margin: 5px 0;
-
   }
 
-
-  .prices li p:first-of-type {
-    font-size: 1.1em;
-    color:	#228B22;
+  /* Corrected styles for Discount and Price */
+  .prices li p:first-of-type { /* Targets the Discount paragraph */
+    font-size: 1.2em; /* Slightly smaller for discount */
+    color: #28a745; /* Green for discount */
     font-weight: 600;
   }
 
-
-.prices li p strong {
-  font-size: 1.0em; /* was 0.1em — likely a typo! */
-  color: #228B22;   /* Green or whatever you prefer */
-  font-weight: 700;
-}
-
-
+  .prices li p strong { /* Targets the Price strong tag */
+    font-size: 1.1em; /* Smaller, but still prominent for price */
+    color: #007bff;   /* Blue for price */
+    font-weight: 700;
+  }
 
   .btn-primary {
     background-color: #b45a5a;
@@ -154,9 +150,9 @@
     border: 1px solid #d1d9e6;
     border-radius: 8px;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 2rem;
     color: #333;
-    max-width: 300px;
+    max-width: 200px;
   }
 
   table {
@@ -207,19 +203,26 @@
     padding: 10px 15px;
   }
 
-input[type="checkbox"] {
+
+  .prices li footer {
+    display: flex; /* Use flexbox for alignment */
+    align-items: right; /* Vertically align items in the middle */
+    justify-content: center; /* Center the checkbox and label horizontally */
+    margin-top: 5px; /* Add some space above the footer content */
+  }
+
+  input[type="checkbox"] {
     appearance: none;
-    width: 24px; /* increased size */
-    height: 24px;
-    border: 2px solid #b45a5a;
+    width: 32px; /* Adjusted size */
+    height: 22px;
+    border: 4px solid #b45a5a;
     border-radius: 4px;
     position: relative;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 8px; /* Space between checkbox and label */
     transition: background-color 0.2s ease, border-color 0.2s ease;
-    vertical-align: middle;
-}
-
+    flex-shrink: 0; /* Prevent checkbox from shrinking */
+  }
 
   input[type="checkbox"]:checked {
     background-color: #b45a5a;
@@ -236,15 +239,14 @@ input[type="checkbox"] {
     transform: translate(-50%, -50%);
   }
 
-.prices li label {
-    font-size: 1.15em; /* slightly larger */
+  .prices li label {
+    font-size: 1.05em; /* Slightly adjusted */
     color: #333;
     cursor: pointer;
-    font-weight: 600;
-    display: inline-block;
-    vertical-align: left;
-}
+    font-weight: 500;
+    line-height: 1;
 
+  }
 </style>
 
 <div class="container my-5">
