@@ -114,7 +114,6 @@ class GuideLines(models.Model):
         return self.Guides
 
 
-
 # dietary_tip
 class DietaryTip(models.Model):
     id = models.AutoField(primary_key=True,null=False)
@@ -122,7 +121,6 @@ class DietaryTip(models.Model):
 
     def __str__(self):
         return self.diet_tips
-
 
 
 # dietary_supply
@@ -133,8 +131,6 @@ class DietarySupply(models.Model):
 
     def __str__(self):
         return self.food_group
-
-
 
 
 # Events

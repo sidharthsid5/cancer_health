@@ -7,7 +7,23 @@ urlpatterns = [
     #Home
     path('', views.homee, name='homee'),
 
-    # Guidelines
+    #View Hair donation Criteria
+    path('hair_donation_view/', views.hair_donation_view, name='hair_donation_view'),
+
+    # View Medical Services
+    path('medical_service_view/', views.medical_service_view, name='medical_service_view'),
+
+    # View Dietary Supplements
+    path('dietary_supply_view/',views.dietary_supply_view,name='dietary_supply_view'),
+
+    # View Dietary Tips
+    path('dietary_tips_view/', views.dietary_tips_view, name='dietary_tips_view'),
+
+
+    # View Events
+    path('events_patient_view/', views.events_patient_view, name='events_patient_view'),
+
+    #View Guidelines
     path('guidelines_patient_view/', views.guidelines_patient_view, name='guidelines_patient_view'),
 
     #search Scan center

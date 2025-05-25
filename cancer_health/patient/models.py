@@ -48,7 +48,6 @@ class RegFreevig(models.Model):
         return f"Free Vig registration {self.Registration_id} for {self.Patient}"
 
 
-
 # Comments
 class Comments(models.Model):
     id = models.AutoField(primary_key=True)

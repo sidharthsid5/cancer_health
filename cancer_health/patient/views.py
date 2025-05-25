@@ -1,19 +1,16 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthRec
+from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthRec, ApplyScan, Patient
 from .forms import ApplyScanForm, CounsellingBookForm, RegFreevigForm, CommentsForm, PatHealthRecForm
 from administrator.forms import District
-from administrator.models import ScanCenter
-
-from administrator.models import ScanType
+from administrator.models import ScanCenter, GuideLines, Events, ScanType, DietaryTip, DietarySupply, MedServices, HairDonCriteria
 from django.http import HttpResponse
-from .models import ApplyScan, Patient
-from administrator.models import GuideLines
 
 
+
+
+# Home
 def homee(request):
     return render(request, 'patient_home.html')
-
 
 # PatHealthRec
 def pat_health_rec_list_create(request):
@@ -310,3 +307,42 @@ def guidelines_patient_view(request):
     context={}
     context['dataset']= GuideLines.objects.all()
     return render(request, 'guidlines_patient.html',context)
+
+# View Events
+def events_patient_view(request):
+    context = {
+        'events': Events.objects.all().order_by('Event_date')
+    }
+    return render(request, 'view_events_patient.html', context)
+
+
+# View Dietary Tips
+def dietary_tips_view(request):
+    context = {
+        'tips': DietaryTip.objects.all()
+    }
+    return render(request, 'view_dietary_tips.html', context)
+
+
+# view Dietary Supplements
+def dietary_supply_view(request):
+     context = {
+         'supplys' : DietarySupply.objects.all()
+     }
+     return render(request, 'view_dietary_supply.html',context)
+
+
+# View Medical Services
+def medical_service_view(request):
+    context = {
+        'Services' : MedServices.objects.all()
+    }
+    return render(request,'view_medservice.html',context)
+
+
+#View Hair donation Criteria
+def hair_donation_view(request):
+    context = {
+        'donations' : HairDonCriteria.objects.all()
+    }
+    return render(request,'view_hairdonations.html',context)
