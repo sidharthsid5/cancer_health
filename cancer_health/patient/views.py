@@ -2,10 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import ApplyScan, CounsellingBook, RegFreevig, Comments, PatHealthRec, ApplyScan, Patient
 from .forms import ApplyScanForm, CounsellingBookForm, RegFreevigForm, CommentsForm, PatHealthRecForm
 from administrator.forms import District
-from administrator.models import ScanCenter, GuideLines, Events, ScanType, DietaryTip, DietarySupply, MedServices, HairDonCriteria
+from administrator.models import ScanCenter, GuideLines, Events, ScanType, DietaryTip, DietarySupply, MedServices, HairDonCriteria, CounCenter
 from django.http import HttpResponse
-
-
 
 
 # Home
@@ -81,39 +79,55 @@ def counselling_book_list_create(request):
     if request.method == 'POST':
         booking_date = request.POST.get("booking_date")
         time_slot = request.POST.get("time_slot")
-        patid = request.session["Patient_id"]
-        pid = Patient.objects.get(id=patid)
+        coun_center_id = request.POST.get("coun_center")  # make sure your form uses this name
 
+        try:
+            coun_center = CounCenter.objects.get(id=coun_center_id)
+        except CounCenter.DoesNotExist:
+            return HttpResponse(
+                "<script>alert('Invalid counseling center selected.');window.history.back();</script>"
+            )
+
+        patid = request.session.get("Patient_id")
+        if not patid:
+            return HttpResponse("<script>alert('Patient not logged in.');window.history.back();</script>")
+        pid = Patient.objects.get(id=patid)
 
         existing_slot_count = CounsellingBook.objects.filter(
             Booking_date=booking_date,
-            Times_lot=time_slot
+            Times_lot=time_slot,
+            coun_center=coun_center
         ).count()
 
         if existing_slot_count >= 5:
             return HttpResponse(
                 "<script>"
-                "alert('This time slot is full. Please choose another time slot and date.');"
+                "alert('This time slot for the selected counseling center is full. Please choose another.');"
                 "window.history.back();"
                 "</script>"
             )
 
         daily_count = CounsellingBook.objects.filter(Booking_date=booking_date).count()
-        obj = CounsellingBook.objects.create(
+
+        CounsellingBook.objects.create(
             patientId=pid,
+            coun_center=coun_center,
             Booking_date=booking_date,
             Times_lot=time_slot,
             Coupon=daily_count + 1
         )
 
         return redirect('counselling_book_list_create')
+
     else:
         form = CounsellingBookForm()
+        coun_centers = CounCenter.objects.all()
 
-    counselling_books = CounsellingBook.objects.filter(patientId=request.session["Patient_id"])
+    counselling_books = CounsellingBook.objects.filter(patientId=request.session.get("Patient_id"))
     return render(request, 'counselling_book_list_create.html', {
         'form': form,
-        'counselling_books': counselling_books
+        'counselling_books': counselling_books,
+        'coun_centers': coun_centers,
     })
 
 

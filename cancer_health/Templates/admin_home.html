@@ -2,7 +2,7 @@
 {% load static %}
 <html lang="">
 <head>
-<title>Trealop</title>
+<title>Cancer Healthline Portal</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <link href="{% static 'layout/styles/layout1.css' %}" rel="stylesheet" type="text/css" media="all">
@@ -25,27 +25,31 @@
     <nav id="mainav" class="fl_right">
       <ul class="clear">
         <li class="active"><a href="{% url 'homes' %}">Home</a></li>
-        <li><a class="drop" href="#">Pages</a>
+        <li><a class="drop" href="#">Directories</a>
           <ul>
+            <li><a class="drop" href="#">Regions</a>
+             <ul>
             <li><a href="{% url 'dist_list_create' %}">District</a></li>
             <li><a href="{% url 'state_list_create' %}">State</a></li>
+             </ul>
             <li><a href="{% url 'cancer_type_list_create' %}">Cancer Type</a></li>
             <li><a href="{% url 'scan_type_list_create' %}">Scan Type</a></li>
+            <li><a href="{% url 'coun_center_list_create' %}">Counseling Center</a></li>
+            <li><a href="{% url 'scan_center_list_create' %}">Scan Center</a></li>
+             </ul>
+          </li>
+        <li><a class="drop" href="#">Services</a>
+          <ul>
+            <li><a href="{% url 'med_services_list_create' %}">Medical Services</a></li>
+            <li><a href="{% url 'dietary_supply_list_create' %}">Dietary Suppliments</a></li>
+            <li><a href="{% url 'hair_don_criteria_list_create' %}">Hair Donation</a></li>
             <li><a href="{% url 'events_list_create' %}">Events</a></li>
+            <li><a href="{% url 'dietary_tip_list_create' %}">Dietary Tips</a></li>
             <li><a href="{% url 'guide_lines_list_create' %}">Guidlines</a></li>
           </ul>
         </li>
-        <li><a class="drop" href="#">Services</a>
-          <ul>
-            <li><a href="{% url 'scan_center_list_create' %}">Scan Center</a></li>
-            <li><a href="{% url 'coun_center_list_create' %}">Counseling Center</a></li>
-            <li><a href="{% url 'med_services_list_create' %}">Medical Services</a></li>
-            <li><a href="{% url 'hair_don_criteria_list_create' %}">Hair Donation</a></li>
-            <li><a href="{% url 'dietary_tip_list_create' %}">Dietary Tips</a></li>
-            <li><a href="{% url 'dietary_supply_list_create' %}">Dietary Suppliments</a></li>
-          </ul>
-        </li>
-        <li><a class="drop" href="#">Reports</a>
+
+        <li><a class="drop" href="#">View</a>
           <ul>
             <li><a href="{% url 'admin_health_records' %}">Health Records</a></li>
             <li><a href="{% url 'admin_view_appointments' %}">Appointments</a></li>
@@ -64,7 +68,7 @@
       <article>
         <h2 class="heading" style="color: black; font-weight: bold;">Welcome</h2>
 
-       <p style="color: black;">Welcome to the Admin Dashboard of the Cancer Health Line Portal.</p>
+       <p style="color: black;">Admin Dashboard of the Cancer Health Line Portal.</p>
 
       </article>
     </div>

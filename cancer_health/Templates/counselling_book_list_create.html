@@ -2,15 +2,12 @@
 {% load static %}
 
 {% block content %}
-
 <style>
-
-
+  /* General Container and Page Title Styling */
   .container.my-5 {
     padding-top: 50px;
     padding-bottom: 50px;
   }
-
 
   .page-title {
     color: #5a2a27;
@@ -34,7 +31,7 @@
     border-radius: 5px;
   }
 
-
+  /* Card and Shadow Base Styling */
   .card.shadow {
     border-radius: 12px;
     border: 1px solid rgba(0, 0, 0, 0.1);
@@ -51,68 +48,127 @@
     text-align: center !important;
   }
 
+  /* Counselling Center Tiles Styling */
+  .counselling-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted tile width */
+    gap: 25px;
+    margin-bottom: 50px;
+  }
 
-  .card-body form p {
+  .card-center {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Lighter shadow for tiles */
+    padding: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff; /* White background for tiles */
+    display: flex; /* Flexbox for internal content alignment */
+    flex-direction: column;
+    justify-content: space-between; /* Push button to bottom */
+  }
+
+  .card-center:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-center h5 {
+    font-size: 1.2em; /* Smaller heading for tiles */
+    font-weight: 700;
+    color: #5a2a27;
     margin-bottom: 15px;
   }
 
-  .card-body form label {
-    display: block;
-    font-weight: 500;
-    color: #444;
+  .card-center p {
+    font-size: 0.9em; /* Smaller text for tile details */
+    color: #555;
     margin-bottom: 8px;
+    line-height: 1.4;
   }
 
-  .card-body form select,
-  .card-body form input[type="date"],
-  .card-body form input[type="time"],
-  .card-body form input[type="text"],
-  .card-body form input[type="number"] {
+  .card-center p strong {
+    color: #333;
+  }
+
+  .selected-card {
+    border: 2px solid #b45a5a; /* Stronger border for selected */
+    background-color: #fff8f8; /* Very light red tint for selected */
+    box-shadow: 0 4px 20px rgba(180, 90, 90, 0.2) !important; /* Emphasize selected */
+  }
+
+  .btn-select {
+    background-color: #b45a5a;
+    color: white;
+    border: none;
+    padding: 8px 16px; /* Slightly larger padding for buttons */
+    border-radius: 8px; /* More rounded buttons */
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-size: 0.9em;
+  }
+
+  .btn-select:hover {
+    background-color: #923f3f;
+    transform: translateY(-2px);
+  }
+
+  /* Booking Form Styling */
+  #booking-form.card.shadow { /* Target the booking form specifically */
+    max-width: 500px; /* Wider than before, but still contained */
+    margin: 50px auto 80px; /* Centered with more vertical margin */
+    display: none; /* Hidden by default */
+  }
+
+  #booking-form .card-body {
+    padding: 30px; /* More padding inside the booking form card */
+  }
+
+  #booking-form form p {
+    margin-bottom: 20px; /* More space between form fields */
+  }
+
+  #booking-form label {
+    display: block;
+    font-weight: 600; /* Bolder labels */
+    color: #444;
+    margin-bottom: 8px;
+    font-size: 1em;
+  }
+
+  #booking-form select,
+  #booking-form input[type="date"] {
     width: 100%;
-    padding: 10px 15px;
+    padding: 12px 15px; /* Larger input fields */
     border: 1px solid #d1d9e6;
     border-radius: 8px;
     box-sizing: border-box;
     font-size: 1rem;
     color: #333;
+    background-color: #fcfcfc; /* Slightly off-white background for inputs */
   }
 
-
-  .btn-primary {
-    background-color: #b45a5a;
-    border-color: #b45a5a;
-    color: white;
-    font-weight: 600;
-    padding: 10px 25px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+  #booking-form .btn-primary {
+    display: block; /* Make button full width of its container */
+    width: fit-content; /* Adjust width to content */
+    margin: 30px auto 0; /* Center button with top margin */
+    padding: 12px 30px; /* Larger button padding */
+    font-size: 1.1em; /* Larger font size for button */
   }
 
-  .btn-primary:hover {
-    background-color: #923f3f;
-    border-color: #923f3f;
-    transform: translateY(-2px);
-  }
+  /* Existing Bookings Table Styling */
+  .table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 50px;
 
-  .btn-danger {
-    background-color: #d9534f;
-    border-color: #d9534f;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
   }
-  .btn-danger:hover {
-      background-color: #c9302c;
-  }
-
 
   .table {
     width: 100%;
     margin-bottom: 0;
-  }
-
-  .table-responsive {
-    border-radius: 0 0 12px 12px;
-    overflow: hidden;
+    border-collapse: collapse;
   }
 
   .table thead th {
@@ -141,42 +197,67 @@
     background-color: #f0f0f0;
   }
 
-  .table .text-muted {
-    color: #888 !important;
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    font-size: 0.9em;
   }
 
-
-  .card-body form p {
-      margin-bottom: 1rem;
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
   }
-
-
-  .card.shadow.mb-5.mx-auto {
-    margin-left: auto !important;
-    margin-right: auto !important;
-     margin-bottom: 100px;
-  }
-
 </style>
 
 <div class="container my-5">
+  <h1 class="page-title">Available Counselling Centers</h1>
 
-  <h1 class="page-title">Counselling Bookings</h1>
+  <div class="counselling-grid">
+    {% for center in coun_centers %}
+    <div class="card-center" data-card-id="{{ center.id }}">
+      <div>
+        <h5><strong>{{ center.counsling_center }}</strong></h5>
+        <p><strong>Description:</strong> {{ center.Description }}</p>
+        <p><strong>Address:</strong> {{ center.Address }}</p>
+        <p><strong>Doctor:</strong> {{ center.Doctor }}</p>
+        <p><strong>Phone:</strong> {{ center.Phone }}</p>
+        <p><strong>Mobile:</strong> {{ center.Mobile }}</p>
+        <p><strong>Email:</strong> {{ center.Email }}</p>
+      </div>
+      <div class="text-end">
+        <button class="btn-select" type="button"
+          data-center-id="{{ center.id }}"
+          data-center-name="{{ center.counsling_center }}">
+          Select
+        </button>
+      </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+      <p class="text-muted text-center">No counseling centers found.</p>
+    </div>
+    {% endfor %}
+  </div>
 
-  <div class="card shadow mb-5 mx-auto" style="max-width: 400px;">
+  <div class="card shadow" id="booking-form">
     <div class="card-header text-center">
-      <h4 class="mb-0">Book a Counselling Session</h4>
+      <h4 class="mb-0">Book a Counselling Session at <span id="selected-center-name"></span></h4>
     </div>
     <div class="card-body">
-      <form method="post">
+      <form method="post" novalidate>
         {% csrf_token %}
+        <input type="hidden" name="coun_center" id="coun_center" value="">
         <p>
           <label for="id_booking_date">Booking Date:</label>
-          <input type="date" id="id_booking_date" name="booking_date" class="form-control" required min="{% now 'Y-m-d' %}">
+          <input type="date" id="id_booking_date" name="booking_date" required min="{% now 'Y-m-d' %}">
         </p>
         <p>
           <label for="id_time_slot">Time Slot:</label>
-          <select id="id_time_slot" name="time_slot" class="form-control" required>
+          <select id="id_time_slot" name="time_slot" required>
             <option value="" disabled selected>-- Select --</option>
             <option value="10AM to 11AM">10AM to 11AM</option>
             <option value="11AM to 12PM">11AM to 12PM</option>
@@ -201,6 +282,7 @@
         <thead>
           <tr>
             <th>Booking ID</th>
+            <th>Counseling Center</th>
             <th>Token Number</th>
             <th>Booking Date</th>
             <th>Booking Time</th>
@@ -211,6 +293,7 @@
           {% for counselling_book in counselling_books %}
           <tr>
             <td>{{ counselling_book.id }}</td>
+            <td>{{ counselling_book.coun_center }}</td>
             <td>{{ counselling_book.Coupon }}</td>
             <td>{{ counselling_book.Booking_date }}</td>
             <td>{{ counselling_book.Times_lot }}</td>
@@ -220,14 +303,37 @@
           </tr>
           {% empty %}
           <tr>
-            <td colspan="5" class="text-muted">No bookings found.</td>
+            <td colspan="6" class="text-muted text-center">No bookings found.</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
-
 </div>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.btn-select').forEach(button => {
+      button.addEventListener('click', function () {
+        const centerId = this.getAttribute('data-center-id');
+        const centerName = this.getAttribute('data-center-name');
+
+        // Remove selection highlight from all cards
+        document.querySelectorAll('.card-center').forEach(card => {
+          card.classList.remove('selected-card');
+        });
+
+        // Highlight the selected card
+        this.closest('.card-center').classList.add('selected-card');
+
+        // Set booking form values
+        document.getElementById('coun_center').value = centerId;
+        document.getElementById('selected-center-name').textContent = centerName;
+        document.getElementById('booking-form').style.display = 'block';
+        document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  });
+</script>
 {% endblock %}

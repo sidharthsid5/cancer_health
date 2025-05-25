@@ -2,8 +2,11 @@
 import django.utils.timezone
 from django.db import models
 
-from administrator.models import ScanType, ScanCenter
+from administrator.models import ScanType, ScanCenter, CounCenter
 from login.models import Patient
+
+
+
 
 # Patient Health Records
 class PatHealthRec(models.Model):
@@ -26,6 +29,8 @@ class CounsellingBook(models.Model):
     Times_lot = models.CharField(max_length=20, null=True)
     Status = models.CharField(default='Pending',max_length=10,null=True)
     Coupon = models.CharField(max_length=6, null=True)
+    coun_center = models.ForeignKey(CounCenter, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return f"Counseling {self.id} for {self.patientId}"

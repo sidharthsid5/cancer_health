@@ -15,7 +15,7 @@ class ApplyScanForm(forms.ModelForm):
 class CounsellingBookForm(forms.ModelForm):
     class Meta:
         model = CounsellingBook
-        fields = 'Booking_date','Times_lot'
+        fields = 'Booking_date','Times_lot','coun_center'
 
 class RegFreevigForm(forms.ModelForm):
     class Meta:
