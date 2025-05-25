@@ -144,7 +144,9 @@ def reg_freevig_list_create(request):
     if request.method == 'POST':
         form = RegFreevigForm(request.POST)
         if form.is_valid():
-            form.save()
+            obj = form.save()
+            obj.Patient = Patient.objects.get(id=request.session["Patient_id"])
+            obj.save()
             return redirect('reg_freevig_list_create')
     else:
         form = RegFreevigForm()
@@ -178,8 +180,8 @@ def comments_list_create(request):
         form = CommentsForm(request.POST)
 
         if form.is_valid():
-            obj = form.save(commit=False)
-            obj.Patient = pid
+            obj = form.save()
+            obj.Patient = Patient.objects.get(id=request.session["Patient_id"])
             obj.save()
             return redirect('comments_list_create')
     else:

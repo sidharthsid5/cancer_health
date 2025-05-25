@@ -20,7 +20,7 @@ class CounsellingBookForm(forms.ModelForm):
 class RegFreevigForm(forms.ModelForm):
     class Meta:
         model = RegFreevig
-        fields = '__all__'
+        fields = ['Full_Name', 'Age', 'Gender', 'Phone', 'Address']
 
 class CommentsForm(forms.ModelForm):
     class Meta:

@@ -3,6 +3,12 @@ from . import views
 
 urlpatterns = [
 
+    # View Comments
+    path('admin_comments_list/', views.admin_comments_list, name='admin_comments_list'),
+
+    # View Vig registration
+    path('admin_regfreevig_list/', views.admin_regfreevig_list, name='admin_regfreevig_list'),
+
     # View Counselling booking
     path('admin_counselling_appointments/', views.admin_counselling_appointments, name='admin_counselling_appointments'),
 

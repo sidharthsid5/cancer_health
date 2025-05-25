@@ -2,7 +2,7 @@
 {% extends 'adminheader.html' %}
 <html>
 <head>
-    <title>Counselling Bookings</title>
+    <title>Vig Registrations</title>
 </head>
 {% block content %}
 
@@ -26,11 +26,11 @@
     padding-bottom: 50px;
   }
 
-  /* Subtitle for sections (like "Counselling Bookings") */
+  /* Subtitle for sections (not explicitly used in your current HTML but kept for consistency) */
   h2 {
     text-align: center;
     color: #007BFF; /* Consistent blue from previous examples */
-    margin: 20px 0 20px; /* Adjusted margin for better spacing */
+    margin: 10px 0 20px;
     font-weight: bold;
     font-size: 1.8em;
   }
@@ -48,8 +48,8 @@
 
   th, td {
     padding: 12px 20px; /* Padding inside cells */
-    border-bottom: 1px solid #ccc; /* Light gray border between rows */
-    text-align: left; /* Align text to the left */
+    border: 1px solid #ccc; /* Light gray border for cells */
+    text-align: left; /* Align text to the left by default */
   }
 
   th {
@@ -59,42 +59,54 @@
     text-align: center; /* Center text in headers */
   }
 
-  tr:last-child td {
-    border-bottom: none; /* No bottom border for the last row */
-  }
-
+  /* Style for alternating table rows */
   tr:nth-child(even) {
     background-color: #f2f2f2; /* Light gray background for even rows */
   }
 
-  /* Specific styling for the last column in the table, if needed */
-  td:last-child {
-    text-align: center; /* Example: center align the last column if it contains actions/buttons */
+  /* Style for the "No free vig registrations found." message */
+  td[colspan="9"] {
+    text-align: center; /* Center the colspan message */
+    font-style: italic;
+    color: #777;
+    padding: 20px; /* Add some padding around the message */
+    border-bottom: none; /* Remove bottom border for the empty message row */
   }
 </style>
 
-<h2>Counselling Bookings</h2>
+<h1>Vig Registrations</h1>
+
 <table>
-  <thead>
-    <tr>
-      <th>Patient ID</th>
-      <th>Booking ID</th>
-      <th>Token Number</th>
-      <th>Booking Date</th>
-      <th>Booking Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for counselling_book in appointments %}
-    <tr>
-      <td>{{ counselling_book.patientId }}</td>
-      <td>{{ counselling_book.id }}</td>
-      <td>{{ counselling_book.Coupon}}</td>
-      <td>{{ counselling_book.Booking_date }}</td>
-      <td>{{ counselling_book.Times_lot }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
+    <thead>
+        <tr>
+            <th>Patient ID</th>
+            <th>Registration ID</th>
+            <th>Registration Date</th>
+            <th>Patient Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Phone</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for reg in registrations %}
+        <tr>
+            <td>{{ reg.Patient }}</td>
+            <td>{{ reg.Registration_id }}</td>
+            <td>{{ reg.Registration_date }}</td>
+            <td>{{ reg.Full_Name }}</td>
+            <td>{{ reg.Age }}</td>
+            <td>{{ reg.Gender }}</td>
+            <td>{{ reg.Phone }}</td>
+            <td>{{ reg.Address }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7">No free vig registrations found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
 </table>
 
 {% endblock %}

@@ -10,9 +10,10 @@ from .forms import (
     HairDonCriteriaForm, MedServicesForm, GuideLinesForm, DietaryTipForm,
     DietarySupplyForm, EventsForm, StateForm, DistForm
 )
-from patient.models import PatHealthRec,ApplyScan, CounsellingBook
+from patient.models import PatHealthRec,ApplyScan, CounsellingBook, RegFreevig, Comments
 
 
+#Admin Home
 def homes(request):
     return render(request,'admin_home.html')
 
@@ -393,3 +394,13 @@ def admin_view_appointments(request):
 def admin_counselling_appointments(request):
     counselling_appointments = CounsellingBook.objects.select_related('patientId').all().order_by('-Booking_date')
     return render(request, 'view_counselling.html', {'appointments': counselling_appointments})
+
+# View Vig Registration
+def admin_regfreevig_list(request):
+    registrations = RegFreevig.objects.select_related('Patient').all().order_by('-Registration_date')
+    return render(request, 'view_regfreevig.html', {'registrations': registrations})
+
+# View Comments
+def admin_comments_list(request):
+    comments = Comments.objects.select_related('Patient').all().order_by('-Date')
+    return render(request, 'view_comments.html', {'comments': comments})
