@@ -87,7 +87,7 @@
   <tbody>
     {% for counselling_book in appointments %}
     <tr>
-      <td>{{ counselling_book.patientId }}</td>
+      <td>{{ counselling_book.patientId.id }}</td>
       <td>{{ counselling_book.id }}</td>
       <td>{{ counselling_book.Coupon}}</td>
       <td>{{ counselling_book.Booking_date }}</td>

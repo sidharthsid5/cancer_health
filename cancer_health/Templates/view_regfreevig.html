@@ -92,7 +92,7 @@
     <tbody>
         {% for reg in registrations %}
         <tr>
-            <td>{{ reg.Patient }}</td>
+            <td>{{ reg.Patient.id }}</td>
             <td>{{ reg.Registration_id }}</td>
             <td>{{ reg.Registration_date }}</td>
             <td>{{ reg.Full_Name }}</td>

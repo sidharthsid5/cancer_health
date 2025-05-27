@@ -94,7 +94,7 @@
   <tbody>
     {% for pat_health_rec in pat_health_recs %}
     <tr>
-      <td>{{ pat_health_rec.Patient }}</td>
+      <td>{{ pat_health_rec.Patient.id }}</td>
       <td>{{ pat_health_rec.Recorded }}</td>
       <td>{{ pat_health_rec.Records_Details }}</td>
       <td>{{ pat_health_rec.Previous_hospital }}</td>

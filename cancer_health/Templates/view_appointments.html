@@ -112,7 +112,7 @@
     <tbody>
       {% for all_appointments in appointments %}
       <tr>
-        <td>{{ all_appointments.patient }}</td>
+        <td>{{ all_appointments.patient.id }}</td>
         <td>{{ all_appointments.Booking_Date }}</td>
         <td>{{ all_appointments.Preferred_time }}</td>
         <td>{{ all_appointments.Coupon }}</td>
