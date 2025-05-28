@@ -27,15 +27,13 @@
         <li class="active"><a href="{% url 'homeee' %}">Home</a></li>
         <li><a class="drop" href="#">Donations</a>
           <ul>
-            <li><a href="{% url 'hair_donation_list_create' %}">Donate Hair</a></li>
+
             <li><a href="{% url 'donation_list_create' %}">Donate Cash</a></li>
+            <li><a href="{% url 'hair_criteria_and_donation_view' %}">Donate Hair</a></li>
           </ul>
         </li>
-        <li><a class="drop" href="#">View</a>
-            <ul>
-              <li><a >Guidelines</a></li>
-              <li><a>Hair Donation Criteria</a></li>
-            </ul>
+        <li><a href="{% url 'guidelines_guest_view' %}">Guidelines</a>
+
           </li>
         <li><a href="{% url 'login1' %}">Log Out</a></li>
       </ul>

@@ -2,9 +2,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import django.utils.timezone
-from administrator.models import Dist
+from administrator.models import Dist, CancerType
 
-from administrator.models import CancerType
 
 
 # Role Model

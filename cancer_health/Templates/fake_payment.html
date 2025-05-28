@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends 'guest_header.html' %}
+<html>
+<head>
+    <title>Payment Portal</title>
+</head>
+{% block content %}
+
+<style>
+  .portal-container {
+    max-width: 500px;
+    margin: 60px auto;
+    background: #f0f3f4;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .portal-container h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .portal-container p {
+    font-size: 18px;
+    color: #34495e;
+    margin-bottom: 30px;
+  }
+
+  .btn-pay {
+    background-color: #27ae60;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn-pay:hover {
+    opacity: 0.9;
+  }
+</style>
+
+<div class="portal-container">
+  <h2>Confirm Payment</h2>
+  <p>You are about to donate ₹{{ donation.Amount }} for:</p>
+  <p><em>{{ donation.Description }}</em></p>
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn-pay">Confirm Payment</button>
+  </form>
+</div>
+
+{% endblock %}

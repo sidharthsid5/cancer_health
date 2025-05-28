@@ -63,7 +63,7 @@ class Comments(models.Model):
     def __str__(self):
         return f"Comment {self.id} by {self.Patient}"
 
-    # Apply Scan
+# Apply Scan
 class ApplyScan(models.Model):
     Scan_Type = models.ManyToManyField(ScanType)
     Scan_Center = models.ForeignKey(ScanCenter, on_delete=models.CASCADE,null=True)

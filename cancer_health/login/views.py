@@ -11,12 +11,7 @@ from django.shortcuts import render
 # Home Page
 def home(request):
     return redirect(login1)
-    # return HttpResponse("hai<br>"
-    #                     "<a href='register_patient'>Click me</a><br>"
-    #                     "<a href='register_guest'>Click me</a><br>"
-    #                     "<a href=' register_volunteer'>Click me</a><br>"
-    #                     "<a href='login1'>Click me</a><br>"
-    #                     )
+
 
 
 

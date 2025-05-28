@@ -1,0 +1,259 @@
+{% extends 'guest_header.html' %}
+{% block content %}
+
+<style>
+  /* Overall page background with a subtle gradient */
+  body {
+    background: linear-gradient(to right, #e0f7fa, #bbdefb); /* Light blue to a slightly darker blue */
+    min-height: 100vh; /* Ensure the gradient covers the whole viewport height */
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* A clean, modern sans-serif font */
+    color: #333;
+  }
+
+  /* Center container - slightly wider and more breathable */
+  .container {
+    max-width: 750px; /* Increased max-width */
+    margin: 30px auto; /* More margin on top/bottom */
+    padding: 25px; /* Added padding inside the container */
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Softer, larger shadow */
+    text-align: center;
+  }
+
+  h1.page-title {
+    color: #2c3e50; /* Darker, more prominent title color */
+    margin-bottom: 30px;
+    font-size: 2.5em; /* Larger title */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  }
+
+  /* Style each section box with enhanced gradients and shadows */
+  .section-box {
+    background: linear-gradient(to bottom, #ffffff, #f0f8ff); /* White to light blue gradient */
+    border: none; /* No hard borders */
+    border-radius: 10px; /* Nicer rounded corners */
+    padding: 25px;
+    margin-bottom: 25px; /* Slightly less margin-bottom */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Softer shadow for depth */
+    transition: transform 0.2s ease-in-out; /* Smooth transition for hover effects */
+  }
+
+  .section-box:hover {
+    transform: translateY(-3px); /* Slight lift on hover */
+  }
+
+  /* Style for checkboxes list */
+  .checkbox-list div {
+    text-align: left;
+    margin: 12px 0; /* More vertical space between checkboxes */
+    font-size: 1.1em; /* Slightly larger text for readability */
+    color: #555;
+  }
+
+  /* Custom checkbox styling for a modern look */
+  .checkbox-list input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #64b5f6; /* Light blue border */
+    border-radius: 4px;
+    vertical-align: middle;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .checkbox-list input[type="checkbox"]:checked {
+    background-color: #2196f3; /* Blue background when checked */
+    border-color: #2196f3;
+  }
+
+  .checkbox-list input[type="checkbox"]:checked::after {
+    content: '✔'; /* Checkmark symbol */
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .checkbox-list label {
+    cursor: pointer;
+    vertical-align: middle;
+  }
+
+  /* Buttons styling with gradients */
+  .btn-save {
+    background: linear-gradient(to right, #4CAF50, #66bb6a); /* Green gradient */
+    border: none;
+    color: white;
+    padding: 12px 30px; /* Larger padding */
+    font-size: 18px; /* Larger font */
+    border-radius: 8px; /* More rounded corners */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Subtle shadow */
+    letter-spacing: 0.5px; /* Slightly more space between letters */
+  }
+  .btn-save:hover {
+    background: linear-gradient(to right, #45a049, #5cb85c); /* Darker green on hover */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* More prominent shadow on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 20px; /* Space above the table */
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners apply to content */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08); /* Light shadow for the table */
+  }
+  th, td {
+    border: 1px solid #e0e0e0; /* Lighter border for cells */
+    padding: 12px; /* More padding in cells */
+  }
+  th {
+    background: linear-gradient(to right, #2196f3, #64b5f6); /* Blue gradient for table header */
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase; /* Uppercase header text */
+    letter-spacing: 0.5px;
+  }
+  tr:nth-child(even){
+    background-color: #f8f8f8; /* Very light grey for even rows */
+  }
+  tr:hover {
+    background-color: #e3f2fd; /* Light blue on row hover */
+  }
+
+  /* Action buttons in table */
+  .btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9em;
+    margin-right: 5px;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-edit {
+    background-color: #ffc107; /* Amber for edit */
+  }
+  .btn-edit:hover {
+    background-color: #ffa000;
+  }
+
+  .btn-delete {
+    background-color: #f44336; /* Red for delete */
+  }
+  .btn-delete:hover {
+    background-color: #d32f2f;
+  }
+
+  /* Spacing for form elements */
+  .section-box p {
+    margin-bottom: 15px; /* Space between form fields */
+  }
+</style>
+
+<h1 class="page-title">Select Hair Donation Criteria</h1>
+
+<form method="post" enctype="multipart/form-data" id="criteria-form">
+  {% csrf_token %}
+  <div class="container">
+
+    <div class="section-box checkbox-list">
+      {% for donation in donations %}
+        <div>
+          <input type="checkbox" id="crit{{ forloop.counter }}" name="selected_criteria" value="{{ donation.id }}"
+            {% if donation in selected_criteria %}checked{% endif %}>
+          <label for="crit{{ forloop.counter }}">{{ donation.Criteria }}</label>
+        </div>
+      {% empty %}
+        <p>No criteria found.</p>
+      {% endfor %}
+    </div>
+
+    <button type="button" id="proceed-btn" class="btn-save">Proceed</button>
+
+   <div id="revealed-content-wrapper" style="{% if show_revealed_content %}display:block;{% else %}display:none;{% endif %}">
+
+       <div id="selected-criteria-container" class="section-box" style="margin-top:20px; text-align:left;">
+        <h2>Selected Criteria</h2>
+        <ul id="selected-list" style="padding-left: 20px; list-style: none;">
+          {% for c in selected_criteria %}
+            <li>{{ c.Criteria }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div id="rest-of-form" class="section-box" style="margin-top:20px;">
+        <h2>Add New Hair Donation</h2>
+        {{ form.as_p }}
+        <button type="submit" class="btn-save">Donate</button>
+      </div>
+
+      {% if hair_donations %}
+        <div id="existing-donations-container" class="section-box" style="margin-top:20px; text-align:left;">
+          <h2>Hair Donations</h2>
+          <table>
+            <thead>
+              <tr><th>Date</th><th>Type</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+              {% for hd in hair_donations %}
+                <tr>
+                  <td>{{ hd.Apply_date }}</td>
+                  <td>{{ hd.Hair_type }}</td>
+                  <td>
+                    <a href="{% url 'hair_donation_edit' hd.pk %}" class="btn btn-edit">Edit</a>
+                    <a href="{% url 'hair_donation_delete' hd.pk %}" class="btn btn-delete">Delete</a>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</form>
+
+<script>
+  document.getElementById('proceed-btn').addEventListener('click', function() {
+    const checkboxes = document.querySelectorAll('input[name="selected_criteria"]:checked');
+    if (checkboxes.length === 0) {
+      alert('Please select at least one criteria before proceeding.');
+      return;
+    }
+
+    // Show selected criteria list dynamically
+    const selectedList = document.getElementById('selected-list');
+    selectedList.innerHTML = ''; // clear current list
+
+    checkboxes.forEach(cb => {
+      const label = cb.nextElementSibling ? cb.nextElementSibling.textContent : cb.value;
+      const li = document.createElement('li');
+      li.textContent = label;
+      selectedList.appendChild(li);
+    });
+
+    // Show the new wrapper for all the content
+    document.getElementById('revealed-content-wrapper').style.display = 'block';
+
+    // Optionally hide proceed button to avoid confusion
+    this.style.display = 'none';
+  });
+</script>
+
+{% endblock %}

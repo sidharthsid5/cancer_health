@@ -27,4 +27,4 @@ class GuestRegistrationForm(forms.ModelForm):
 class VolunteerRegistrationForm(forms.ModelForm):
     class Meta:
         model = Volunteer
-        fields = ['id', 'Apply_area', 'Location', 'Status']
+        fields = ['id', 'Apply_area', 'Location']

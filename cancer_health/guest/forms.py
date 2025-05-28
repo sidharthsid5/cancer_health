@@ -6,9 +6,9 @@ from .models import HairDonation, Donation
 class HairDonationForm(forms.ModelForm):
     class Meta:
         model = HairDonation
-        fields = '__all__'
+        fields = 'Hair_type','Hair_image'
 
 class DonationForm(forms.ModelForm):
     class Meta:
         model = Donation
-        fields = '__all__'
+        fields = 'Amount', 'Description'

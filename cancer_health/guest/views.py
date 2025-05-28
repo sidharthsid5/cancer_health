@@ -6,17 +6,14 @@ from .models import HairDonation, Donation
 from login.forms import GuestRegistrationForm
 from login.models import Guest
 
+from administrator.models import HairDonCriteria, GuideLines
+
+
+
 def homeee(request):
-    # return HttpResponse("hai<br>"
-    #                     "<a href='hair_donation_list_create'>Click me</a><br>"
-    #                     "<a href='donation_list_create'>Click me</a><br>"
-    #
-    #                     )
     return render(request, 'guest_home.html')
 
 # Guest
-
-
 def guest_edit(request, pk):
     guest = get_object_or_404(Guest, pk=pk)
     if request.method == 'POST':
@@ -38,9 +35,11 @@ def guest_delete(request, pk):
 # HairDonation
 def hair_donation_list_create(request):
     if request.method == 'POST':
-        form = HairDonationForm(request.POST)
+        form = HairDonationForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            obj = form.save()
+            obj.Guest = Guest.objects.get(id=request.session["Guest_id"])
+            obj.save()
             return redirect('hair_donation_list_create')
     else:
         form = HairDonationForm()
@@ -94,3 +93,77 @@ def donation_delete(request, pk):
         donation.delete()
         return redirect('donation_list_create')
     return render(request, 'donation_delete.html', {'donation': donation})
+
+
+#View Hair donation Criteria
+def hair_criteria_view(request):
+    context = {
+        'donations' : HairDonCriteria.objects.all()
+    }
+    return render(request,'view_haircriteria.html',context)
+def hair_criteria_and_donation_view(request):
+    selected_criteria = []
+    guest_id = request.session.get("Guest_id")
+    show_revealed_content = False
+
+    if request.method == 'POST':
+        selected_ids = request.POST.getlist('selected_criteria')
+        selected_criteria = HairDonCriteria.objects.filter(id__in=selected_ids)
+        show_revealed_content = True
+
+        form = HairDonationForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.Guest = Guest.objects.get(id=guest_id)
+            obj.save()
+            form = HairDonationForm()
+
+    else:
+        form = HairDonationForm()
+
+    donations = HairDonCriteria.objects.all()
+    hair_donations = HairDonation.objects.filter(Guest_id=guest_id)
+
+    return render(request, 'hair_criteria_and_donation.html', {
+        'donations': donations,
+        'selected_criteria': selected_criteria,
+        'form': form,
+        'hair_donations': hair_donations,
+        'show_revealed_content': show_revealed_content
+    })
+
+# View Guidlines
+def guidelines_guest_view(request):
+    context={}
+    context['dataset']= GuideLines.objects.all()
+    return render(request, 'guidlines_guest.html',context)
+
+
+def donation_list_create(request):
+    if request.method == 'POST':
+        form = DonationForm(request.POST)
+        if form.is_valid():
+            donation = form.save(commit=False)
+            donation.Guest = Guest.objects.get(id=request.session["Guest_id"])
+            donation.Status = "Initiated"
+            donation.save()
+            return redirect('fake_payment_portal', donation_id=donation.id)
+    else:
+        form = DonationForm()
+
+    donations = Donation.objects.filter(Payment_status='Success')
+    return render(request, 'donation_list_create.html', {'form': form, 'donations': donations})
+
+
+def fake_payment_portal(request, donation_id):
+    donation = get_object_or_404(Donation, pk=donation_id)
+    if request.method == 'POST':
+        donation.Payment_status = 'Success'
+        donation.Status = 'Completed'
+        donation.Transaction_type = 'Card'
+        donation.Card_number = 1234567890  # Fake entry
+        donation.Bank = 'ABC'
+        donation.save()
+
+        return redirect('donation_list_create')
+    return render(request, 'fake_payment.html', {'donation': donation})

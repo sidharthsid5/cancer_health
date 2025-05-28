@@ -130,10 +130,21 @@
 
 <h2>Add New Hair Donation</h2>
 <div class="form-container">
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
+
       {% csrf_token %}
       {{ form.as_p }}
+       <p>
+        <label for="id_Apply_date">Apply Date:</label>
+        <input type="date" id="id_Apply_date" name="Apply_date" required min="{% now 'Y-m-d' %}">
+      </p>
       <button type="submit" class="btn btn-save">Save</button>
+  </form>
+</div>
+<div class="form-container">
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+
   </form>
 </div>
 
@@ -141,16 +152,16 @@
 <table>
   <thead>
     <tr>
-      <th>Guest ID</th>
-      <th>Length</th>
-      <th>Actions</th>
+      <th>Date</th>
+      <th>Hair Type</th>
+        <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for hair_donation in hair_donations %}
     <tr>
-      <td>{{ hair_donation.Guestid }}</td>
-      <td>{{ hair_donation.length }}</td>
+      <td>{{ hair_donation.Apply_date }}</td>
+      <td>{{ hair_donation.Hair_type }}</td>
       <td>
         <a href="{% url 'hair_donation_edit' hair_donation.pk %}" class="btn btn-edit">Edit</a>
         <a href="{% url 'hair_donation_delete' hair_donation.pk %}" class="btn btn-delete">Delete</a>

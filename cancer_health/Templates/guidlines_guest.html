@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+{% extends 'guest_header.html' %}
+{% block content %}
+
+<style>
+  .container.my-5 {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .page-title {
+    color: #388e3c; /* Darker green for title */
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding-bottom: 15px;
+  }
+
+  .page-title::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #66bb6a; /* Medium green for underline */
+    border-radius: 5px;
+  }
+  form {
+    padding: 20px;
+    text-align: left;
+    width: 200px; /* Adjust width as needed */
+  }
+  .card.shadow {
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+    overflow: hidden;
+  }
+
+  .card-header {
+    background-color: #4caf50 !important; /* Medium green for card header */
+    color: white !important;
+    font-weight: 600;
+    padding: 15px 20px;
+    border-bottom: none;
+    text-align: center !important;
+  }
+
+  .table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse;
+  }
+
+  .table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .table thead th {
+    background-color: #4caf50; /* Medium green for table header */
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    padding: 12px 15px;
+    border-bottom: 2px solid #388e3c; /* Darker green for border */
+    border-top: none;
+  }
+
+  .table tbody td {
+    padding: 10px 15px;
+    vertical-align: middle;
+    border-color: #e8f5e9; /* Very light green for borders */
+    color: #333; /* Darker text for readability */
+    text-align: center;
+  }
+
+  .table tbody tr:nth-of-type(odd) {
+    background-color: #f1f8e9; /* Lightest green for odd rows */
+  }
+
+  .table tbody tr:hover {
+    background-color: #e0f2f1; /* Slightly darker light green on hover */
+  }
+
+  .table .text-muted {
+    color: #666 !important; /* Slightly darker mute color for better visibility */
+  }
+</style>
+
+<div class="container my-5">
+
+  <h1 class="page-title">Guidelines</h1>
+
+  <div class="card shadow">
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Guide</th>
+            <th>Added Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for guide_line in dataset %}
+          <tr>
+            <td>{{ guide_line.Guides }}</td>
+            <td>{{ guide_line.added_date }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="2" class="text-muted">No guidelines found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
